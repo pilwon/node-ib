@@ -1,0 +1,28 @@
+{
+  "name": "interactive-brokers",
+  "description": "Interactive Brokers client library for Node.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Pilwon Huh",
+    "email": "pilwon@gmail.com"
+  },
+  "homepage": "https://github.com/pilwon/node-interactive-brokers",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pilwon/node-interactive-brokers.git"
+  },
+  "keywords": [
+    "interactive",
+    "brokers",
+    "finance",
+    "client",
+    "library"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+  }
+}
