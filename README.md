@@ -13,7 +13,8 @@
 ```js
 var ib = new (require('ib'))({
   // host: '127.0.0.1',
-  // port: 7496
+  // port: 7496,
+  // clientId: 100
 }).on('error', function (err, data) {
   console.error('ERROR: %s - (%s)', err.message, JSON.stringify(data));
 }).on('currentTime', function (time) {
