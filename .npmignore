@@ -1,0 +1,11 @@
+#
+# .npmignore
+#
+
+.editorconfig
+.gitattributes
+.jshintrc
+Gruntfile.js
+examples/
+java/
+test/
