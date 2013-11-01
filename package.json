@@ -1,6 +1,6 @@
 {
   "name": "ib",
-  "description": "Interactive Brokers client library for Node.js",
+  "description": "Interactive Brokers TWS client library natively written in Node.js",
   "version": "0.1.0",
   "license": "MIT",
   "author": {
@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "colors": "~0.6.2",
+    "command-buffer": "~0.1.0",
     "lodash": "~2.2.1"
   },
   "devDependencies": {
@@ -29,7 +30,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-mocha-test": "~0.7.0",
     "matchdep": "~0.3.0",
-    "mocha": "~1.13.0",
+    "mocha": "~1.13.0"
   },
   "scripts": {
     "prepublish": "npm prune",
