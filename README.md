@@ -20,10 +20,62 @@ var ib = new (require('ib'))({
 
 ### API
 
-#### General
+#### Connection
 
 ```js
-ib.connect();
+connect()
+disconnect()
+```
+
+#### Events
+
+```js
+on('error', function (err, data) {})
+```
+
+#### Commands
+
+```js
+calculateImpliedVolatility(reqId, contract, optionPrice, underPrice)
+calculateOptionPrice(reqId, contract, volatility, underPrice)
+cancelAccountSummary(reqId)
+cancelCalculateImpliedVolatility(reqId)
+cancelCalculateOptionPrice(reqId)
+cancelFundamentalData(reqId)
+cancelHistoricalData(tickerId)
+cancelMktData(tickerId)
+cancelMktDepth(tickerId)
+cancelNewsBulletins()
+cancelOrder(id)
+cancelPositions()
+cancelRealTimeBars(tickerId)
+cancelScannerSubscription(tickerId)
+exerciseOptions(tickerId, contract, exerciseAction, exerciseQuantity, account, override)
+placeOrder(id, contract, order)
+replaceFA(faDataType, xml)
+reqAccountSummary(reqId, group, tags)
+reqAccountUpdates(subscribe, acctCode)
+reqAllOpenOrders()
+reqAutoOpenOrders(bAutoBind)
+reqContractDetails(reqId, contract)
+reqCurrentTime()
+reqExecutions(reqId, filter)
+reqFundamentalData(reqId, contract, reportType)
+reqGlobalCancel()
+reqHistoricalData(tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate)
+reqIds(numIds)
+reqManagedAccts()
+reqMarketDataType(marketDataType)
+reqMktData(tickerId, contract, genericTickList, snapshot)
+reqMktDepth(tickerId, contract, numRows)
+reqNewsBulletins(allMsgs)
+reqOpenOrders()
+reqPositions()
+reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH)
+reqScannerParameters()
+reqScannerSubscription(tickerId, subscription)
+requestFA(faDataType)
+setServerLogLevel(logLevel)
 ```
 
 
