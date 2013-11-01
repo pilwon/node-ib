@@ -14,6 +14,14 @@
 var ib = new (require('ib'))({
   // host: '127.0.0.1',
   // port: 7496
+}).on('error', function (err, data) {
+  console.error('ERROR: %s - (%s)', err.message, JSON.stringify(data));
+}).on('currentTime', function (time) {
+  console.log('Current Time: %s', time);
+}).on('position', function (account, contract, pos, avgCost) {
+  console.log('Position: %s, %s, %s, %s', account, contrast, post, avgCost);
+}).on('positionEnd', function () {
+  console.log('-------------------------');
 });
 
 ib.connect()
