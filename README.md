@@ -27,11 +27,6 @@ ib.connect();
 ```
 
 
-## Development
-
-    $ node-gyp configure && node-gyp build
-
-
 ## Credits
 
   See the [contributors](https://github.com/pilwon/node-ib/graphs/contributors).

@@ -30,7 +30,6 @@
     "grunt-mocha-test": "~0.7.0",
     "matchdep": "~0.3.0",
     "mocha": "~1.13.0",
-    "node-gyp": "~0.11.0"
   },
   "scripts": {
     "prepublish": "npm prune",
