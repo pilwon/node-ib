@@ -19,9 +19,7 @@ var ib = new (require('ib'))({
 }).on('currentTime', function (time) {
   console.log('Current Time: %s', time);
 }).on('position', function (account, contract, pos, avgCost) {
-  console.log('Position: %s, %s, %s, %s', account, contrast, post, avgCost);
-}).on('positionEnd', function () {
-  console.log('-------------------------');
+  console.log('Position: %s, %s, %s, %s', account, JSON.stringify(contract), pos, avgCost);
 });
 
 ib.connect()
