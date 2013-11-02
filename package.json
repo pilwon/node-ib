@@ -1,6 +1,6 @@
 {
   "name": "ib",
-  "description": "Interactive Brokers TWS client library natively written in Node.js",
+  "description": "Interactive Brokers TWS API client library for Node.js",
   "version": "0.1.0",
   "license": "MIT",
   "author": {

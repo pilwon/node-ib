@@ -2,7 +2,9 @@
 
 [![NPM](https://nodei.co/npm/ib.png?downloads=false&stars=false)](https://npmjs.org/package/ib) [![NPM](https://nodei.co/npm-dl/ib.png?months=6)](https://npmjs.org/package/ib)
 
-`ib` is a client library for [Interactive Brokers TWS](http://interactivebrokers.com/) written natively in [Node.js](http://nodejs.org/).
+`ib` is [Interactive Brokers](http://interactivebrokers.com/) TWS API client libary for [Node.js](http://nodejs.org/).
+
+This is a direct port of Interactive Brokers' official Java client. There is no C++ library dependency. It makes a socket connection to TWS using the [net module](http://nodejs.org/api/net.html) and all messages are processed in JavaScript.
 
 
 ## Installation
