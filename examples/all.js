@@ -1,5 +1,5 @@
 /*
- * examples/test.js
+ * examples/all.js
  */
 
 // TODO: find an option contract example that works
