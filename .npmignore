@@ -2,10 +2,11 @@
 # .npmignore
 #
 
-.editorconfig
-.gitattributes
-.jshintrc
-Gruntfile.js
-examples/
-java/
-test/
+/.editorconfig
+/.gitattributes
+/.jshintrc
+/Gruntfile.js
+/examples/
+/java/
+/logo.png
+/test/

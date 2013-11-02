@@ -1,5 +1,8 @@
 [![NPM](https://nodei.co/npm/ib.png?downloads=false&stars=false)](https://npmjs.org/package/ib) [![NPM](https://nodei.co/npm-dl/ib.png?months=6)](https://npmjs.org/package/ib)
 
+
+![Screenshot](https://raw.github.com/pilwon/node-ib/master/logo.png)]
+
 `ib` is a client library for [Interactive Brokers TWS](http://interactivebrokers.com/) written natively in [Node.js](http://nodejs.org/).
 
 
