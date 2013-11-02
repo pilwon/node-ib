@@ -17,8 +17,10 @@ var ib = new (require('ib'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
-}).on('error', function (err, data) {
-  console.error('ERROR: %s - (%s)', err.message, JSON.stringify(data));
+}).on('connected', function () {
+  console.log('CONNECTED!');
+}).on('error', function (err) {
+  console.error('ERROR: %s', err.message);
 }).on('currentTime', function (time) {
   console.log('Current Time: %s', time);
 }).on('position', function (account, contract, pos, avgCost) {
@@ -88,7 +90,55 @@ ib.connect()
 ### Events
 
 ```js
-.on('error', function (err, data) {})
+// General
+.on('all', function (event, args))
+.on('connected', function ())
+.on('disconnected', function ())
+.on('error', function (err, data))
+.on('received', function (tokens, data))
+.on('sent', function (tokens, data))
+.on('server', function (version, connectionTime))
+
+// Data
+.on('accountDownloadEnd', function (accountName))
+.on('accountSummary', function (reqId, account, tag, value, currency))
+.on('accountSummaryEnd', function (reqId))
+.on('bondContractDetails', function (reqId, contract))
+.on('commissionReport', function (commissionReport))
+.on('contractDetails', function (reqId, contract))
+.on('contractDetailsEnd', function (reqId))
+.on('currentTime', function (time))
+.on('deltaNeutralValidation', function (reqId, underComp))
+.on('execDetails', function (reqId, contract, exec))
+.on('execDetailsEnd', function (reqId))
+.on('fundamentalData', function (reqId, data))
+.on('historicalData', function (reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps))
+.on('managedAccounts', function (accountsList))
+.on('marketDataType', function (reqId, marketDataType))
+.on('nextValidId', function (orderId))
+.on('openOrder', function (orderId, contract, order, orderState))
+.on('openOrderEnd', function ())
+.on('orderStatus', function (id, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld))
+.on('position', function (account, contract, pos, avgCost))
+.on('positionEnd', function ())
+.on('realtimeBar', function (reqId, time, open, high, low, close, volume, wap, count))
+.on('receiveFA', function (faDataType, xml))
+.on('scannerData', function (tickerId, rank, contract, distance, benchmark, projection, legsStr))
+.on('scannerDataEnd', function (tickerId))
+.on('scannerParameters', function (xml))
+.on('tickEFP', function (tickerId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureExpiry, dividendImpact, dividendsToExpiry))
+.on('tickGeneric', function (tickerId, tickType, value))
+.on('tickOptionComputation', function (tickerId, tickType, impliedVol, delta, optPrice, pvDividend, gamma, vega, theta, undPrice))
+.on('tickPrice', function (tickerId, tickType, price, canAutoExecute))
+.on('tickSize', function (tickerId, sizeTickType, size))
+.on('tickSnapshotEnd', function (reqId))
+.on('tickString', function (tickerId, tickType, value))
+.on('updateAccountTime', function (timeStamp))
+.on('updateAccountValue', function (key, val, cur, accountName))
+.on('updateMktDepth', function (id, position, operation, side, price, size))
+.on('updateMktDepthL2', function (id, position, marketMaker, operation, side, price, size))
+.on('updateNewsBulletin', function (newsMsgId, newsMsgType, newsMessage, originatingExch))
+.on('updatePortfolio', function (contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName))
 ```
 
 
