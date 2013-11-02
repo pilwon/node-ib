@@ -12,9 +12,9 @@
 
 ```js
 var ib = new (require('ib'))({
+  // clientId: 100,
   // host: '127.0.0.1',
-  // port: 7496,
-  // clientId: 100
+  // port: 7496
 }).on('error', function (err, data) {
   console.error('ERROR: %s - (%s)', err.message, JSON.stringify(data));
 }).on('currentTime', function (time) {

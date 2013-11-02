@@ -7,9 +7,9 @@
 var util = require('util');
 
 var ib = new (require('..'))({
+  clientId: 100,
   // host: '127.0.0.1',
-  // port: 4923,
-  clientId: 100
+  // port: 7496
 });
 
 var C = require('../lib/constants');
