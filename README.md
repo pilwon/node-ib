@@ -12,7 +12,7 @@
 
 ```js
 var ib = new (require('ib'))({
-  // clientId: 100,
+  // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err, data) {
