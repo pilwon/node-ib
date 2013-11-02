@@ -93,15 +93,18 @@ ib.connect()
 
 ```js
 // General
-.on('all', function (event, args))
+.on('error', function (err, data))
+.on('result', function (event, args))  // exclude connection
+.on('all', function (event, args))  // error + connection + result
+
+// Connection
 .on('connected', function ())
 .on('disconnected', function ())
-.on('error', function (err, data))
 .on('received', function (tokens, data))
 .on('sent', function (tokens, data))
 .on('server', function (version, connectionTime))
 
-// Data
+// Result
 .on('accountDownloadEnd', function (accountName))
 .on('accountSummary', function (reqId, account, tag, value, currency))
 .on('accountSummaryEnd', function (reqId))
