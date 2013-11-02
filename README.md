@@ -4,7 +4,7 @@
 
 `ib` is [Interactive Brokers](http://interactivebrokers.com/) TWS API client libary for [Node.js](http://nodejs.org/).
 
-This is a direct port of Interactive Brokers' official Java client. There is no C++/Java library dependency. It makes a socket connection to TWS using the [net module](http://nodejs.org/api/net.html) and all messages are processed in JavaScript.
+This is a direct port of Interactive Brokers' official Java client. There is no C++/Java library dependency. It makes a socket connection to TWS using the [net](http://nodejs.org/api/net.html) module, and all messages are entirely processed in JavaScript. It uses [EventEmitter](http://nodejs.org/api/events.html) to pass the result back to user.
 
 
 ## Installation
