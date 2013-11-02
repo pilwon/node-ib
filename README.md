@@ -38,12 +38,6 @@ ib.connect()
 .disconnect()
 ```
 
-### Events
-
-```js
-.on('error', function (err, data) {})
-```
-
 ### Commands
 
 ```js
@@ -87,6 +81,12 @@ ib.connect()
 .reqScannerSubscription(tickerId, subscription)
 .requestFA(faDataType)
 .setServerLogLevel(logLevel)
+```
+
+### Events
+
+```js
+.on('error', function (err, data) {})
 ```
 
 
