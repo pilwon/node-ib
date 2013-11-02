@@ -23,10 +23,29 @@ ib.on('error', function (err, data) {
 // });
 
 ib.connect();
+ib.reqAllOpenOrders();
 
-// ib.calculateImpliedVolatility(reqId, contract, optionPrice, underPrice);
+// TODO: find an option contract example that works
 
-// ib.calculateOptionPrice(reqId, contract, volatility, underPrice);
+ib.calculateImpliedVolatility(12345, {
+  currency: 'USD',
+  exchange: 'SMART',
+  expiry: '20140118',
+  right: 'C',
+  secType: 'OPT',
+  strike: 40.00,
+  symbol: 'QQQQ'
+}, 12.34, 56.78);  // reqId, contract, optionPrice, underPrice
+
+ib.calculateOptionPrice(12345, {
+  currency: 'USD',
+  exchange: 'SMART',
+  expiry: '20140118',
+  right: 'C',
+  secType: 'OPT',
+  strike: 40.00,
+  symbol: 'QQQQ'
+}, 12.34, 56.78);  // reqId, contract, volatility, underPrice
 
 ib.cancelAccountSummary(12345);  // reqId
 
@@ -52,11 +71,19 @@ ib.cancelRealTimeBars(12345);  // tickerId
 
 ib.cancelScannerSubscription(12345);  // tickerId
 
-// ib.exerciseOptions(tickerId, contract, exerciseAction, exerciseQuantity, account, override);
+ib.exerciseOptions(12345, {
+  currency: 'USD',
+  exchange: 'SMART',
+  expiry: '20140118',
+  right: 'C',
+  secType: 'OPT',
+  strike: 40.00,
+  symbol: 'QQQQ'
+}, C.EXERCISE_ACTION.EXERCISE, 10, 'U1234567', 0);  // tickerId, contract, exerciseAction, exerciseQuantity, account, override
 
 // ib.placeOrder(id, contract, order);
 
-// ib.replaceFA(faDataType, xml);
+ib.replaceFA(C.FA_DATA_TYPE.GROUPS, '<?xml version="1.0" encoding="UTF-8"?>');  // faDataType, xml
 
 ib.reqAccountSummary(12345, 'All', 'AccountType,NetLiquidation,TotalCashValue,SettledCash,AccruedCash,BuyingPower,EquityWithLoanValue,PreviousEquityWithLoanValue,GrossPositionValue,RegTEquity,RegTMargin,SMA,InitMarginReq,MaintMarginReq,AvailableFunds,ExcessLiquidity,Cushion,FullInitMarginReq,FullMaintMarginReq,FullAvailableFunds,FullExcessLiquidity,LookAheadNextChange,LookAheadInitMarginReq,LookAheadMaintMarginReq,LookAheadAvailableFunds,LookAheadExcessLiquidity,HighestSeverity,DayTradesRemaining,Leverage');  // reqId, group, tags
 
@@ -111,7 +138,7 @@ ib.reqFundamentalData(203, {
 
 ib.reqGlobalCancel();
 
-// ib.reqHistoricalData(tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate);
+// ib.reqHistoricalData(12345, {}, ...);  // tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate
 
 ib.reqIds(5);  // numIds
 
@@ -144,7 +171,12 @@ ib.reqMktData(303, {
   symbol: 'AMZN'
 }, '', false);  // tickerId, contract, genericTickList, snapshot
 
-// ib.reqMktDepth(tickerId, contract, numRows);
+ib.reqMktDepth(12345, {
+  currency: 'CAD',
+  exchange: 'IDEALPRO',
+  secType: 'CASH',
+  symbol: 'USD'
+}, 10);  // tickerId, contract, numRows
 
 ib.reqNewsBulletins(true);  // allMsgs
 
@@ -152,7 +184,13 @@ ib.reqOpenOrders();
 
 ib.reqPositions();
 
-// ib.reqRealTimeBars(tickerId, contract, barSize, whatToShow, useRTH);
+ib.reqRealTimeBars(12345, {
+  currency: 'USD',
+  exchange: 'SMART',
+  primaryExch: 'NASDAQ',
+  secType: 'STK',
+  symbol: 'AMZN'
+}, 5, 'TRADES', false);  // tickerId, contract, barSize, whatToShow, useRTH
 
 // ib.reqScannerParameters();
 
@@ -164,11 +202,11 @@ ib.reqScannerSubscription(12345, {
   stockTypeFilter: 'ALL'
 });  // tickerId, subscription
 
-ib.requestFA(C.FA.GROUPS);  // faDataType
+ib.requestFA(C.FA_DATA_TYPE.GROUPS);  // faDataType
 
-ib.requestFA(C.FA.PROFILES);  // faDataType
+ib.requestFA(C.FA_DATA_TYPE.PROFILES);  // faDataType
 
-// ib.requestFA(C.FA.ALIASES);  // faDataType
+// ib.requestFA(C.FA_DATA_TYPE.ALIASES);  // faDataType
 
 ib.setServerLogLevel(C.LOG_LEVEL.WARN);  // logLevel
 
