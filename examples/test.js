@@ -2,30 +2,48 @@
  * examples/test.js
  */
 
+// TODO: find an option contract example that works
+
 'use strict';
 
 var util = require('util');
+
+require('colors');
+
+var _ = require('lodash');
+
+var C = require('../lib/constants');
 
 var ib = new (require('..'))({
   clientId: 100,
   // host: '127.0.0.1',
   // port: 7496
+}).on('all', function (event, args) {
+  if (!_.contains(['connected', 'disconnected', 'error', 'received', 'sent', 'server'], event)) {
+    console.log(util.format('======= %s =======', event).green);
+    args.forEach(function (arg, i) {
+      console.log('%s %s',
+        util.format('[%d]', i + 1).green,
+        JSON.stringify(arg)
+      );
+    });
+  }
+}).on('connected', function () {
+  console.log('CONNECTED'.rainbow);
+}).on('diconnected', function () {
+  console.log('DISCONNECTED'.rainbow);
+}).on('error', function (err) {
+  console.error(util.format('@@@ ERROR: %s @@@', err.message).red);
+}).on('received', function (tokens) {
+  console.info('%s %s', '<<< RECV <<<'.cyan, JSON.stringify(tokens));
+}).on('sent', function (tokens) {
+  console.info('%s %s', '>>> SENT >>>'.yellow, JSON.stringify(tokens));
+}).on('server', function (version, connectionTime) {
+  console.log(util.format('Server Version: %s', version).rainbow);
+  console.log(util.format('Server Connection Time: %s', connectionTime).rainbow);
 });
-
-var C = require('../lib/constants');
-
-ib.on('error', function (err, data) {
-  // console.log(util.format('%s --- %s', err.message, JSON.stringify(data)).red);
-});
-
-// ib.on('nextValidId', function (orderId) {
-//   console.log('nextValidId: %s', orderId);
-// });
 
 ib.connect();
-ib.reqAllOpenOrders();
-
-// TODO: find an option contract example that works
 
 ib.calculateImpliedVolatility(12345, {
   currency: 'USD',
@@ -197,7 +215,7 @@ ib.reqRealTimeBars(12345, {
 ib.reqScannerSubscription(12345, {
   instrument: 'STK',
   locationCode: 'STK.NASDAQ.NMS',
-  numberOfRows: 10,
+  numberOfRows: 5,
   scanCode: 'TOP_PERC_GAIN',
   stockTypeFilter: 'ALL'
 });  // tickerId, subscription
