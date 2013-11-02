@@ -12,28 +12,14 @@ require('colors');
 
 var _ = require('lodash');
 
-var C = require('../lib/constants');
-
 var ib = new (require('..'))({
-  clientId: 100,
+  // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
-}).on('all', function (event, args) {
-  if (!_.contains(['connected', 'disconnected', 'error', 'received', 'sent', 'server'], event)) {
-    console.log(util.format('======= %s =======', event).green);
-    args.forEach(function (arg, i) {
-      console.log('%s %s',
-        util.format('[%d]', i + 1).green,
-        JSON.stringify(arg)
-      );
-    });
-  }
 }).on('connected', function () {
   console.log('CONNECTED'.rainbow);
 }).on('diconnected', function () {
   console.log('DISCONNECTED'.rainbow);
-}).on('error', function (err) {
-  console.error(util.format('@@@ ERROR: %s @@@', err.message).red);
 }).on('received', function (tokens) {
   console.info('%s %s', '<<< RECV <<<'.cyan, JSON.stringify(tokens));
 }).on('sent', function (tokens) {
@@ -41,6 +27,16 @@ var ib = new (require('..'))({
 }).on('server', function (version, connectionTime) {
   console.log(util.format('Server Version: %s', version).rainbow);
   console.log(util.format('Server Connection Time: %s', connectionTime).rainbow);
+}).on('error', function (err) {
+  console.error(util.format('@@@ ERROR: %s @@@', err.message).red);
+}).on('result', function (event, args) {
+  console.log(util.format('======= %s =======', event).green);
+  args.forEach(function (arg, i) {
+    console.log('%s %s',
+      util.format('[%d]', i + 1).green,
+      JSON.stringify(arg)
+    );
+  });
 });
 
 ib.connect();
@@ -97,11 +93,11 @@ ib.exerciseOptions(12345, {
   secType: 'OPT',
   strike: 40.00,
   symbol: 'QQQQ'
-}, C.EXERCISE_ACTION.EXERCISE, 10, 'U1234567', 0);  // tickerId, contract, exerciseAction, exerciseQuantity, account, override
+}, ib.EXERCISE_ACTION.EXERCISE, 10, 'U1234567', 0);  // tickerId, contract, exerciseAction, exerciseQuantity, account, override
 
 // ib.placeOrder(id, contract, order);
 
-ib.replaceFA(C.FA_DATA_TYPE.GROUPS, '<?xml version="1.0" encoding="UTF-8"?>');  // faDataType, xml
+ib.replaceFA(ib.FA_DATA_TYPE.GROUPS, '<?xml version="1.0" encoding="UTF-8"?>');  // faDataType, xml
 
 ib.reqAccountSummary(12345, 'All', 'AccountType,NetLiquidation,TotalCashValue,SettledCash,AccruedCash,BuyingPower,EquityWithLoanValue,PreviousEquityWithLoanValue,GrossPositionValue,RegTEquity,RegTMargin,SMA,InitMarginReq,MaintMarginReq,AvailableFunds,ExcessLiquidity,Cushion,FullInitMarginReq,FullMaintMarginReq,FullAvailableFunds,FullExcessLiquidity,LookAheadNextChange,LookAheadInitMarginReq,LookAheadMaintMarginReq,LookAheadAvailableFunds,LookAheadExcessLiquidity,HighestSeverity,DayTradesRemaining,Leverage');  // reqId, group, tags
 
@@ -220,12 +216,12 @@ ib.reqScannerSubscription(12345, {
   stockTypeFilter: 'ALL'
 });  // tickerId, subscription
 
-ib.requestFA(C.FA_DATA_TYPE.GROUPS);  // faDataType
+ib.requestFA(ib.FA_DATA_TYPE.GROUPS);  // faDataType
 
-ib.requestFA(C.FA_DATA_TYPE.PROFILES);  // faDataType
+ib.requestFA(ib.FA_DATA_TYPE.PROFILES);  // faDataType
 
-// ib.requestFA(C.FA_DATA_TYPE.ALIASES);  // faDataType
+// ib.requestFA(ib.FA_DATA_TYPE.ALIASES);  // faDataType
 
-ib.setServerLogLevel(C.LOG_LEVEL.WARN);  // logLevel
+ib.setServerLogLevel(ib.LOG_LEVEL.WARN);  // logLevel
 
 // ib.disconnect();
