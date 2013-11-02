@@ -64,7 +64,7 @@ ib.reqAccountUpdates(true, 'U1234567');  // subscribe, acctCode
 
 ib.reqAllOpenOrders();
 
-// ib.reqAutoOpenOrders(bAutoBind);
+ib.reqAutoOpenOrders(true);  // bAutoBind
 
 ib.reqContractDetails(101, {
   currency: 'USD',
