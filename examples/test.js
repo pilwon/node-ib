@@ -8,7 +8,8 @@ var util = require('util');
 
 var ib = new (require('..'))({
   // host: '127.0.0.1',
-  // port: 4923
+  // port: 4923,
+  clientId: 100
 });
 
 var C = require('../lib/constants');
@@ -74,7 +75,15 @@ ib.reqContractDetails(101, {
 
 ib.reqCurrentTime();
 
-// ib.reqExecutions(reqId, filter);
+ib.reqExecutions(12345, {
+  // clientId: '',
+  // acctCode: '',
+  // time: '',
+  // symbol: '',
+  // secType: '',
+  // exchange: '',
+  // side: ''
+});  // reqId, filter
 
 ib.reqFundamentalData(201, {
   currency: 'USD',
