@@ -70,11 +70,8 @@ ib.reqAccountSummary(1, 'All', [
   'Leverage'
 ]);
 
-// Disconnect after 15 seconds.
-setTimeout(function () {
+ib.on('accountSummaryEnd', function () {
   console.log('Cancelling real-time bars subscription...'.yellow);
-
   ib.cancelAccountSummary(1);
-
   ib.disconnect();
-}, 15000);
+});

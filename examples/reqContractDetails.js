@@ -55,7 +55,10 @@ ib.reqContractDetails(22, ib.contract.option('AMZN', '201404', 350, 'P'));
 ib.reqContractDetails(23, ib.contract.option('GOOG', '201406', 1000, 'C'));
 ib.reqContractDetails(24, ib.contract.option('FB', '201406', 50, 'P'));
 
-// Disconnect after 5 seconds.
-setTimeout(function () {
-  ib.disconnect();
-}, 5000);
+var NUM_CONTRACTS = 6 + 4 + 4,
+    count = 0;
+ib.on('contractDetailsEnd', function () {
+  if (++count >= NUM_CONTRACTS) {
+    ib.disconnect();
+  }
+});

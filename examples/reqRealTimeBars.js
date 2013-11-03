@@ -56,7 +56,7 @@ ib.reqRealTimeBars(22, ib.contract.option('AMZN', '201404', 350, 'P'), 5, 'BID',
 ib.reqRealTimeBars(23, ib.contract.option('GOOG', '201406', 1000, 'C'), 5, 'ASK', false);
 ib.reqRealTimeBars(24, ib.contract.option('FB', '201406', 50, 'P'), 5, 'MIDPOINT', false);
 
-// Disconnect after 15 seconds.
+// Disconnect after 10 seconds.
 setTimeout(function () {
   console.log('Cancelling real-time bars subscription...'.yellow);
 
@@ -81,4 +81,4 @@ setTimeout(function () {
   ib.cancelRealTimeBars(24);
 
   ib.disconnect();
-}, 15000);
+}, 10000);

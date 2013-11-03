@@ -33,11 +33,9 @@ var intervalId = setInterval(function () {
   ib.reqCurrentTime();
 }, 300);
 
-// Disconnect after 5 seconds.
+// Disconnect after 3 seconds.
 setTimeout(function () {
   console.log('Stopping requests...'.yellow);
-
   clearInterval(intervalId);
-
   ib.disconnect();
-}, 5000);
+}, 3000);

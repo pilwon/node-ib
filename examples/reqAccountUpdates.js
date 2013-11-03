@@ -58,11 +58,8 @@ ib.connect();
 
 ib.reqAccountUpdates(true, 'U1234567');
 
-// Disconnect after 15 seconds.
-setTimeout(function () {
+ib.on('accountDownloadEnd', function () {
   console.log('Cancelling account updates subscription...'.yellow);
-
   ib.reqAccountUpdates(false, 'All');
-
   ib.disconnect();
-}, 15000);
+});
