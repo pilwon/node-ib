@@ -152,7 +152,7 @@ ib.reqGlobalCancel();
 
 // ib.reqHistoricalData(12345, {}, ...);  // tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate
 
-ib.reqIds(5);  // numIds
+ib.reqIds(1);  // numIds
 
 ib.reqManagedAccts();
 
