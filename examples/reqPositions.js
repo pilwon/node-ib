@@ -28,7 +28,7 @@ var ib = new (require('..'))({
     'avgCost='.bold, avgCost
   );
 }).on('positionEnd', function () {
-  console.log('%s', '[positionEnd]'.cyan);
+  console.log('[positionEnd]'.cyan);
 });
 
 ib.connect();
