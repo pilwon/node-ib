@@ -34,6 +34,8 @@ ib.connect()
   .reqPositions();
 ```
 
+* [See more comprehensive examples here.](https://github.com/pilwon/node-ib/tree/master/examples)
+
 
 ## API
 
