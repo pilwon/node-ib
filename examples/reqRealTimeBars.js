@@ -24,17 +24,17 @@ var ib = new (require('..'))({
   }
 }).on('realtimeBar', function (reqId, time, open, high, low, close, volume, wap, count) {
   console.log(
-    '%s reqId=%d time=%d open=%f high=%f low=%f close=%f volume=%d wap=%f count=%d',
+    '%s %s%d %s%d %s%d %s%d %s%d %s%d %s%d %s%d %s%d',
     '[realtimeBar]'.cyan,
-    reqId,
-    time,
-    open,
-    high,
-    low,
-    close,
-    volume,
-    wap,
-    count
+    'reqId='.bold, reqId,
+    'time='.bold, time,
+    'open='.bold, open,
+    'high='.bold, high,
+    'low='.bold, low,
+    'close='.bold, close,
+    'volume='.bold, volume,
+    'wap='.bold, wap,
+    'count='.bold, count
   );
 });
 

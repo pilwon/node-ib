@@ -24,32 +24,32 @@ var ib = new (require('..'))({
   }
 }).on('tickGeneric', function (tickerId, tickType, value) {
   console.log(
-    '%s tickerId=%d value=%f',
+    '%s %s%d %s%d',
     util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
-    tickerId,
-    value
+    'tickerId='.bold, tickerId,
+    'value='.bold, value
   );
 }).on('tickPrice', function (tickerId, tickType, price, canAutoExecute) {
   console.log(
-    '%s tickerId=%d price=%f canAutoExecute=%s',
+    '%s %s%d %s%d %s%s',
     util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
-    tickerId,
-    price,
-    canAutoExecute
+    'tickerId='.bold, tickerId,
+    'price='.bold, price,
+    'canAutoExecute='.bold, canAutoExecute
   );
 }).on('tickSize', function (tickerId, sizeTickType, size) {
   console.log(
-    '%s tickerId=%d size=%d',
+    '%s %s%d %s%d',
     util.format('[%s]', ib.util.tickTypeToString(sizeTickType)).cyan,
-    tickerId,
-    size
+    'tickerId:'.bold, tickerId,
+    'size:'.bold, size
   );
 }).on('tickString', function (tickerId, tickType, value) {
   console.log(
-    '%s tickerId=%d value=%s',
+    '%s %s%d %s%s',
     util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
-    tickerId,
-    value
+    'tickerId='.bold, tickerId,
+    'value='.bold, value
   );
 });
 
