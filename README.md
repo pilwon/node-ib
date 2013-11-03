@@ -93,6 +93,8 @@ ib.connect()
 
 ### Events
 
+* [Refer to Java client code for argument types (Boolean/Number/String)](https://github.com/pilwon/node-ib/blob/master/ref/client/EWrapper.java)
+
 ```js
 // General
 .on('error', function (err, data))
