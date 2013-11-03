@@ -8,8 +8,6 @@ require('colors');
 
 var _ = require('lodash');
 
-var CONTRACTS = {};
-
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
@@ -58,7 +56,7 @@ ib.reqRealTimeBars(22, ib.contract.option('AMZN', '201404', 350, 'P'), 5, 'BID',
 ib.reqRealTimeBars(23, ib.contract.option('GOOG', '201406', 1000, 'C'), 5, 'ASK', false);
 ib.reqRealTimeBars(24, ib.contract.option('FB', '201406', 50, 'P'), 5, 'MIDPOINT', false);
 
-// Unsubscribe after 15 seconds.
+// Disconnect after 15 seconds.
 setTimeout(function () {
   console.log('Cancelling real-time bars subscription...'.yellow);
 
@@ -81,4 +79,6 @@ setTimeout(function () {
   ib.cancelRealTimeBars(22);
   ib.cancelRealTimeBars(23);
   ib.cancelRealTimeBars(24);
+
+  ib.disconnect();
 }, 15000);

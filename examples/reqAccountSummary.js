@@ -8,8 +8,6 @@ require('colors');
 
 var _ = require('lodash');
 
-var CONTRACTS = {};
-
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
@@ -40,7 +38,7 @@ var ib = new (require('..'))({
 
 ib.connect();
 
-ib.reqAccountSummary(1, 'Parents', [
+ib.reqAccountSummary(1, 'All', [
   'AccountType',
   'NetLiquidation',
   'TotalCashValue',
@@ -70,11 +68,13 @@ ib.reqAccountSummary(1, 'Parents', [
   'HighestSeverity',
   'DayTradesRemaining',
   'Leverage'
-].join(','));
+]);
 
-// Unsubscribe after 15 seconds.
+// Disconnect after 15 seconds.
 setTimeout(function () {
   console.log('Cancelling real-time bars subscription...'.yellow);
 
   ib.cancelAccountSummary(1);
+
+  ib.disconnect();
 }, 15000);
