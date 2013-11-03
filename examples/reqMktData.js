@@ -17,15 +17,46 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['tickGeneric', 'tickPrice', 'tickSize', 'tickString'], event)) {
+  if (!_.contains(['tickEFP', 'tickGeneric', 'tickOptionComputation', 'tickPrice',
+                   'tickSize', 'tickString'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
+}).on('tickEFP', function (tickerId, tickType, basisPoints, formattedBasisPoints,
+                           impliedFuturesPrice, holdDays, futureExpiry, dividendImpact,
+                           dividendsToExpiry) {
+  console.log(
+    '%s %s%d %s%d %s%s %s%d %s%d %s%s %s%d %s%d',
+    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    'tickerId='.bold, tickerId,
+    'basisPoints='.bold, basisPoints,
+    'formattedBasisPoints='.bold, formattedBasisPoints,
+    'impliedFuturesPrice='.bold, impliedFuturesPrice,
+    'holdDays='.bold, holdDays,
+    'futureExpiry='.bold, futureExpiry,
+    'dividendImpact='.bold, dividendImpact,
+    'dividendsToExpiry='.bold, dividendsToExpiry
+  );
 }).on('tickGeneric', function (tickerId, tickType, value) {
   console.log(
     '%s %s%d %s%d',
     util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
     'tickerId='.bold, tickerId,
     'value='.bold, value
+  );
+}).on('tickOptionComputation', function (tickerId, tickType, impliedVol, delta, optPrice,
+                                         pvDividend, gamma, vega, theta, undPrice) {
+  console.log(
+    '%s %s%d %s%s %s%s %s%s %s%d %s%s %s%s %s%s %s%d',
+    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    'tickerId='.bold, tickerId,
+    'impliedVol='.bold, ib.util.numberToString(impliedVol),
+    'delta='.bold, ib.util.numberToString(delta),
+    'optPrice='.bold, ib.util.numberToString(optPrice),
+    'pvDividend='.bold, pvDividend,
+    'gamma='.bold, ib.util.numberToString(gamma),
+    'vega='.bold, ib.util.numberToString(vega),
+    'theta='.bold, ib.util.numberToString(theta),
+    'undPrice='.bold, undPrice
   );
 }).on('tickPrice', function (tickerId, tickType, price, canAutoExecute) {
   console.log(
@@ -50,10 +81,6 @@ var ib = new (require('..'))({
     'value='.bold, value
   );
 });
-
-// TODO(?)
-//   - tickOptionComputation
-//   - tickEFP
 
 ib.connect();
 
