@@ -93,8 +93,6 @@ ib.connect()
 
 ### Events
 
-* [Refer to Java client code for argument types (Boolean/Number/String)](https://github.com/pilwon/node-ib/blob/master/ref/client/EWrapper.java)
-
 ```js
 // General
 .on('error', function (err, data))
@@ -149,6 +147,8 @@ ib.connect()
 .on('updateNewsBulletin', function (newsMsgId, newsMsgType, newsMessage, originatingExch))
 .on('updatePortfolio', function (contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName))
 ```
+
+* [See Java client code for argument types (Boolean/Number/String)](https://github.com/pilwon/node-ib/blob/master/ref/client/EWrapper.java)
 
 
 ## Credits
