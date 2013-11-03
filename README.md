@@ -150,6 +150,29 @@ ib.connect()
 
 * [See Java client code for argument types (Boolean/Number/String)](https://github.com/pilwon/node-ib/blob/master/ref/client/EWrapper.java)
 
+### Builders
+
+```js
+// Contract
+.contract.combo(symbol, currency, exchange)
+.contract.forex(symbol, currency)
+.contract.future(symbol, expiry, currency)
+.contract.option(symbol, expiry, strike, right, exchange, currency)
+.contract.stock(symbol, exchange, currency)
+
+// Order
+.order.limit(action, quantity, price)
+```
+
+### Util
+
+```js
+.incomingToString(incoming)
+.numberToString(number)
+.outgoingToString(outgoing)
+.tickTypeToString(tickType)
+```
+
 
 ## Credits
 
