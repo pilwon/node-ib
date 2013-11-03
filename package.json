@@ -42,7 +42,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-mocha-test": "~0.7.0",
     "matchdep": "~0.3.0",
-    "mocha": "~1.13.0"
+    "mocha": "~1.13.0",
+    "moment": "~2.4.0"
   },
   "scripts": {
     "prepublish": "npm prune",
