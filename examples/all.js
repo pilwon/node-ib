@@ -2,8 +2,6 @@
  * examples/all.js
  */
 
-// TODO: find an option contract example that works
-
 'use strict';
 
 var util = require('util');
@@ -159,9 +157,6 @@ ib.reqIds(5);  // numIds
 ib.reqManagedAccts();
 
 ib.reqMarketDataType(1);  // marketDataType (1 or 2)
-
-// From this ordered list, from left to right, whichever currency comes first should be placed first
-// EUR GBP AUD USD CAD CHF MXN HKD JPY INR NOK SEK
 
 ib.reqMktData(301, {
   currency: 'USD',
