@@ -53,10 +53,6 @@ var ib = new (require('..'))({
   );
 });
 
-ib.connect();
-
-ib.reqIds(1);
-
 ib.once('nextValidId', function (orderId) {
   console.log('Placing orders...'.yellow);
 
@@ -86,3 +82,6 @@ ib.once('nextValidId', function (orderId) {
     ib.reqAllOpenOrders();
   }, 5000);
 });
+
+ib.connect()
+  .reqIds(1);
