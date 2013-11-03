@@ -19,19 +19,23 @@ var ib = new (require('ib'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
-}).on('connected', function () {
-  console.log('CONNECTED!');
 }).on('error', function (err) {
-  console.error('ERROR: %s', err.message);
-}).on('currentTime', function (time) {
-  console.log('Current Time: %s', time);
-}).on('position', function (account, contract, pos, avgCost) {
-  console.log('Position: %s, %s, %s, %s', account, JSON.stringify(contract), pos, avgCost);
-});
+  console.error('error --- %s', err.message);
+}).on('result', function (event, args) {
+  console.log('%s --- %s', event, JSON.stringify(args));
+}).once('nextValidId', function (orderId) {
+  this.placeOrder(
+    orderId,
+    this.contract.stock('AAPL'),
+    this.order.limit('BUY', 1, 0.01)  // safe, unreal value used for demo
+  );
+  this.reqOpenOrders();
+}).once('openOrderEnd', function () {
+  this.disconnect();
+})
 
 ib.connect()
-  .reqCurrentTime()
-  .reqPositions();
+  .reqIds(1);
 ```
 
 * [See more comprehensive examples here.](https://github.com/pilwon/node-ib/tree/master/examples)
