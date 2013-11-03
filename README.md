@@ -24,14 +24,14 @@ var ib = new (require('ib'))({
 }).on('result', function (event, args) {
   console.log('%s --- %s', event, JSON.stringify(args));
 }).once('nextValidId', function (orderId) {
-  this.placeOrder(
+  ib.placeOrder(
     orderId,
-    this.contract.stock('AAPL'),
-    this.order.limit('BUY', 1, 0.01)  // safe, unreal value used for demo
+    ib.contract.stock('AAPL'),
+    ib.order.limit('BUY', 1, 0.01)  // safe, unreal value used for demo
   );
-  this.reqOpenOrders();
+  ib.reqOpenOrders();
 }).once('openOrderEnd', function () {
-  this.disconnect();
+  ib.disconnect();
 })
 
 ib.connect()
