@@ -4,8 +4,6 @@
 
 'use strict';
 
-var util = require('util');
-
 require('colors');
 
 var _ = require('lodash');
@@ -17,7 +15,7 @@ var ib = new (require('..'))({
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(util.format('ERROR: %s', err.message).red);
+  console.error(err.message.red);
 }).on('result', function (event, args) {
   if (!_.contains(['realtimeBar'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
