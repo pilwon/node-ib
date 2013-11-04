@@ -104,7 +104,7 @@ ib.reqMktData(22, ib.contract.option('AMZN', '201404', 350, 'P'), '', false);
 ib.reqMktData(23, ib.contract.option('GOOG', '201406', 1000, 'C'), '', false);
 ib.reqMktData(24, ib.contract.option('FB', '201406', 50, 'P'), '', false);
 
-// Disconnect after 15 seconds.
+// Disconnect after 7 seconds.
 setTimeout(function () {
   console.log('Cancelling market data subscription...'.yellow);
 
@@ -129,4 +129,4 @@ setTimeout(function () {
   ib.cancelMktData(24);
 
   ib.disconnect();
-}, 15000);
+}, 7000);
