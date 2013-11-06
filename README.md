@@ -6,6 +6,8 @@
 
 This is a direct port of Interactive Brokers' official Java client. There is no C++/Java library dependency. It makes a socket connection to TWS (or IB Gateway) using the [net](http://nodejs.org/api/net.html) module, and all messages are entirely processed in JavaScript. It uses [EventEmitter](http://nodejs.org/api/events.html) to pass the result back to user.
 
+If you're looking for a version that wraps Interactive Brokers' official C++ client, check out [Jae Yang (dchem)](https://github.com/dchem)'s [node-ibapi-addon](https://github.com/dchem/node-ibapi-addon).
+
 
 ## Installation
 
