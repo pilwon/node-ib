@@ -5,6 +5,7 @@
 /.editorconfig
 /.gitattributes
 /.jshintrc
+/.npmignore
 /Gruntfile.js
 /examples/
 /logo.jpg
