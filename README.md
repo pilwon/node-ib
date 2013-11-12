@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/ib.png?downloads=false&stars=false)](https://npmjs.org/package/ib) [![NPM](https://nodei.co/npm-dl/ib.png?months=6)](https://npmjs.org/package/ib)
 
-`ib` is [Interactive Brokers](http://interactivebrokers.com/) TWS (or IB Gateway) API client libary for [Node.js](http://nodejs.org/).
+`ib` is [Interactive Brokers](http://interactivebrokers.com/) TWS (or IB Gateway) API client library for [Node.js](http://nodejs.org/).
 
 This is a direct port of Interactive Brokers' official Java client. There is no C++/Java library dependency. It makes a socket connection to TWS (or IB Gateway) using the [net](http://nodejs.org/api/net.html) module, and all messages are entirely processed in JavaScript. It uses [EventEmitter](http://nodejs.org/api/events.html) to pass the result back to user.
 
