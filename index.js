@@ -1,7 +1,8 @@
 /*
- * index.js
+ * lib/order/index.js
  */
 
 'use strict';
 
-exports = module.exports = require('./lib');
+exports.limit = require('./limit');
+exports.stopLimit = require('./stopLimit');
