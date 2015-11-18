@@ -104,6 +104,9 @@ ib.reqMktData(22, ib.contract.option('AMZN', '201404', 350, 'P'), '', false);
 ib.reqMktData(23, ib.contract.option('GOOG', '201406', 1000, 'C'), '', false);
 ib.reqMktData(24, ib.contract.option('FB', '201406', 50, 'P'), '', false);
 
+// Future
+ib.reqMktData(25, ib.contract.future('ES', '201512', 'USD', 'GLOBEX'), '', false);
+
 // Disconnect after 7 seconds.
 setTimeout(function () {
   console.log('Cancelling market data subscription...'.yellow);
@@ -127,6 +130,9 @@ setTimeout(function () {
   ib.cancelMktData(22);
   ib.cancelMktData(23);
   ib.cancelMktData(24);
+
+  // Future
+  ib.cancelMktData(25);
 
   ib.disconnect();
 }, 7000);
