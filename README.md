@@ -162,7 +162,7 @@ ib.connect()
 // Contract
 .contract.combo(symbol, currency, exchange)
 .contract.forex(symbol, currency)
-.contract.future(symbol, expiry, currency)
+.contract.future(symbol, expiry, currency, exchange)
 .contract.option(symbol, expiry, strike, right, exchange, currency)
 .contract.stock(symbol, exchange, currency)
 
