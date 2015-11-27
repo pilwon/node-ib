@@ -168,6 +168,9 @@ ib.connect()
 
 // Order
 .order.limit(action, quantity, price)
+.order.market(action, quantity)
+.order.stop(action, quantity, price)
+.order.stopLimit(action, quantity, limitPrice, stopPrice)
 ```
 
 ### Util
