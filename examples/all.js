@@ -1,9 +1,3 @@
-/*
- * examples/all.js
- */
-
-'use strict';
-
 var util = require('util');
 
 require('colors');

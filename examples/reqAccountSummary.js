@@ -1,9 +1,3 @@
-/*
- * examples/reqAccountSummary.js
- */
-
-'use strict';
-
 require('colors');
 
 var _ = require('lodash');

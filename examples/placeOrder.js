@@ -1,9 +1,3 @@
-/*
- * examples/placeOrder.js
- */
-
-'use strict';
-
 require('colors');
 
 var _ = require('lodash');
