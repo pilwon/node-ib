@@ -1,5 +1,4 @@
 require('colors');
-
 var _ = require('lodash');
 
 var ib = new (require('..'))({

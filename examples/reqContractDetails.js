@@ -1,5 +1,4 @@
 require('colors');
-
 var _ = require('lodash');
 
 var ib = new (require('..'))({
@@ -49,8 +48,8 @@ ib.reqContractDetails(22, ib.contract.option('AMZN', '201404', 350, 'P'));
 ib.reqContractDetails(23, ib.contract.option('GOOG', '201406', 1000, 'C'));
 ib.reqContractDetails(24, ib.contract.option('FB', '201406', 50, 'P'));
 
-var NUM_CONTRACTS = 6 + 4 + 4,
-    count = 0;
+var NUM_CONTRACTS = 6 + 4 + 4;
+var count = 0;
 ib.on('contractDetailsEnd', function () {
   if (++count >= NUM_CONTRACTS) {
     ib.disconnect();

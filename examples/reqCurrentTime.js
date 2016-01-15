@@ -1,7 +1,6 @@
 require('colors');
-
-var _ = require('lodash'),
-    moment = require('moment');
+var _ = require('lodash');
+var moment = require('moment');
 
 var ib = new (require('..'))({
   // clientId: 0,
