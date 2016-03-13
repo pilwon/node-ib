@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['contractDetails', 'contractDetailsEnd'], event)) {
+  if (!_.includes(['contractDetails', 'contractDetailsEnd'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('contractDetails', function (reqId, contract) {

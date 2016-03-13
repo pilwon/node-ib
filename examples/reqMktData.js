@@ -10,7 +10,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['tickEFP', 'tickGeneric', 'tickOptionComputation', 'tickPrice',
+  if (!_.includes(['tickEFP', 'tickGeneric', 'tickOptionComputation', 'tickPrice',
                    'tickSize', 'tickString'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }

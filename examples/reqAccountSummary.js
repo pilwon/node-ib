@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['accountSummary', 'accountSummaryEnd'], event)) {
+  if (!_.includes(['accountSummary', 'accountSummaryEnd'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('accountSummary', function (reqId, account, tag, value, currency) {

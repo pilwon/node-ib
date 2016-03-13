@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['position', 'positionEnd'], event)) {
+  if (!_.includes(['position', 'positionEnd'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('position', function (account, contract, pos, avgCost) {

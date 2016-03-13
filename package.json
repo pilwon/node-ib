@@ -40,8 +40,8 @@
     "library"
   ],
   "dependencies": {
-    "command-buffer": "~0.1.0",
-    "lodash": "~2.2.1"
+    "command-buffer": "0.1.0",
+    "lodash": "4.6.1"
   },
   "devDependencies": {
     "colors": "~0.6.2",
