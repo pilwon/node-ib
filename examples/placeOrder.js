@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['nextValidId', 'openOrder', 'openOrderEnd', 'orderStatus'], event)) {
+  if (!_.includes(['nextValidId', 'openOrder', 'openOrderEnd', 'orderStatus'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('nextValidId', function (orderId) {

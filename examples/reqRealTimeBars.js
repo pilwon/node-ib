@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['realtimeBar'], event)) {
+  if (!_.includes(['realtimeBar'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('realtimeBar', function (reqId, time, open, high, low, close, volume, wap, count) {

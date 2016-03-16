@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('result', function (event, args) {
-  if (!_.contains(['accountDownloadEnd', 'updateAccountTime', 'updateAccountValue', 'updatePortfolio'], event)) {
+  if (!_.includes(['accountDownloadEnd', 'updateAccountTime', 'updateAccountValue', 'updatePortfolio'], event)) {
     console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
   }
 }).on('accountDownloadEnd', function (accountName) {
