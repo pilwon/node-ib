@@ -8,7 +8,7 @@ var ib = new (require('..'))({
 }).on('error', function (err) {
   console.error(err.message.red);
 }).on('historicalData', function (reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps) {
-  if (_.contains([-1], open)) {
+  if (_.includes([-1], open)) {
     console.log('endhistoricalData');
   } else {
     console.log(
@@ -35,7 +35,7 @@ ib.connect();
 ib.reqHistoricalData(1, ib.contract.stock('SPY','SMART','USD'), '20160308 12:00:00',durationStr='1800 S',barSizeSetting='1 secs',whatToShow='TRADES',useRTH=1,formatDate=1);  
 
 ib.on('historicalData', function (reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps) {
-  if (_.contains([-1], open)) {
+  if (_.includes([-1], open)) {
     //ib.cancelHistoricalData(1);  // tickerId
     ib.disconnect();
   }
