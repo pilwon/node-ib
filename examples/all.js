@@ -9,7 +9,7 @@ var ib = new (require('..'))({
   // port: 7496
 }).on('connected', function () {
   console.log('CONNECTED'.rainbow);
-}).on('diconnected', function () {
+}).on('disconnected', function () {
   console.log('DISCONNECTED'.rainbow);
 }).on('received', function (tokens) {
   console.info('%s %s', '<<< RECV <<<'.cyan, JSON.stringify(tokens));
