@@ -1,7 +1,3 @@
-/*
- * Gruntfile.js
- */
-
 'use strict';
 
 module.exports = function (grunt) {
