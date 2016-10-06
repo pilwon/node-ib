@@ -1,25 +1,25 @@
 var util = require('util');
 
-require('colors');
 var _ = require('lodash');
+var chalk = require('chalk');
 
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(err.message.red);
+  console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['tickEFP', 'tickGeneric', 'tickOptionComputation', 'tickPrice',
                    'tickSize', 'tickString'], event)) {
-    console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
+    console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('tickEFP', function (tickerId, tickType, basisPoints, formattedBasisPoints,
                            impliedFuturesPrice, holdDays, futureExpiry, dividendImpact,
                            dividendsToExpiry) {
   console.log(
     '%s %s%d %s%d %s%s %s%d %s%d %s%s %s%d %s%d',
-    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
     'tickerId='.bold, tickerId,
     'basisPoints='.bold, basisPoints,
     'formattedBasisPoints='.bold, formattedBasisPoints,
@@ -32,7 +32,7 @@ var ib = new (require('..'))({
 }).on('tickGeneric', function (tickerId, tickType, value) {
   console.log(
     '%s %s%d %s%d',
-    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
     'tickerId='.bold, tickerId,
     'value='.bold, value
   );
@@ -40,7 +40,7 @@ var ib = new (require('..'))({
                                          pvDividend, gamma, vega, theta, undPrice) {
   console.log(
     '%s %s%d %s%s %s%s %s%s %s%d %s%s %s%s %s%s %s%d',
-    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
     'tickerId='.bold, tickerId,
     'impliedVol='.bold, ib.util.numberToString(impliedVol),
     'delta='.bold, ib.util.numberToString(delta),
@@ -54,7 +54,7 @@ var ib = new (require('..'))({
 }).on('tickPrice', function (tickerId, tickType, price, canAutoExecute) {
   console.log(
     '%s %s%d %s%d %s%s',
-    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
     'tickerId='.bold, tickerId,
     'price='.bold, price,
     'canAutoExecute='.bold, canAutoExecute
@@ -62,14 +62,14 @@ var ib = new (require('..'))({
 }).on('tickSize', function (tickerId, sizeTickType, size) {
   console.log(
     '%s %s%d %s%d',
-    util.format('[%s]', ib.util.tickTypeToString(sizeTickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(sizeTickType))),
     'tickerId:'.bold, tickerId,
     'size:'.bold, size
   );
 }).on('tickString', function (tickerId, tickType, value) {
   console.log(
     '%s %s%d %s%s',
-    util.format('[%s]', ib.util.tickTypeToString(tickType)).cyan,
+    chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
     'tickerId='.bold, tickerId,
     'value='.bold, value
   );
@@ -102,7 +102,7 @@ ib.reqMktData(25, ib.contract.future('ES', '201512', 'USD', 'GLOBEX'), '', false
 
 // Disconnect after 7 seconds.
 setTimeout(function () {
-  console.log('Cancelling market data subscription...'.yellow);
+  console.log(chalk.yellow('Cancelling market data subscription...'));
 
   // Forex
   ib.cancelMktData(1);

@@ -1,5 +1,5 @@
-require('colors');
 var _ = require('lodash');
+var chalk = require('chalk');
 var moment = require('moment');
 
 var ib = new (require('..'))({
@@ -7,15 +7,15 @@ var ib = new (require('..'))({
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(err.message.red);
+  console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['currentTime'], event)) {
-    console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
+    console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('currentTime', function (time) {
   console.log(
     '%s %s%s',
-    '[currentTime]'.cyan,
+    chalk.cyan('[currentTime]'),
     'time='.bold, moment.unix(time).format('YYYY-MM-DD hh:mm:ss A')
   );
 });
@@ -28,7 +28,7 @@ var intervalId = setInterval(function () {
 
 // Disconnect after 3 seconds.
 setTimeout(function () {
-  console.log('Stopping requests...'.yellow);
+  console.log(chalk.yellow('Stopping requests...'));
   clearInterval(intervalId);
   ib.disconnect();
 }, 3000);

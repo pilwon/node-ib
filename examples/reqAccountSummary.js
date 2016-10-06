@@ -1,20 +1,20 @@
-require('colors');
 var _ = require('lodash');
+var chalk = require('chalk');
 
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(err.message.red);
+  console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['accountSummary', 'accountSummaryEnd'], event)) {
-    console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
+    console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('accountSummary', function (reqId, account, tag, value, currency) {
   console.log(
     '%s %s%d %s%s %s%s %s%s %s%s',
-    '[accountSummary]'.cyan,
+    chalk.cyan('[accountSummary]'),
     'reqId='.bold, reqId,
     'account='.bold, account,
     'tag='.bold, tag,
@@ -24,7 +24,7 @@ var ib = new (require('..'))({
 }).on('accountSummaryEnd', function (reqId) {
   console.log(
     '%s %s%d',
-    '[accountSummaryEnd]'.cyan,
+    chalk.cyan('[accountSummaryEnd]'),
     'reqId='.bold, reqId
   );
 });
@@ -64,7 +64,7 @@ ib.reqAccountSummary(1, 'All', [
 ]);
 
 ib.on('accountSummaryEnd', function () {
-  console.log('Cancelling real-time bars subscription...'.yellow);
+  console.log(chalk.yellow('Cancelling real-time bars subscription...'));
   ib.cancelAccountSummary(1);
   ib.disconnect();
 });

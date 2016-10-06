@@ -1,20 +1,20 @@
-require('colors');
 var _ = require('lodash');
+var chalk = require('chalk');
 
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(err.message.red);
+  console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['realtimeBar'], event)) {
-    console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
+    console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('realtimeBar', function (reqId, time, open, high, low, close, volume, wap, count) {
   console.log(
     '%s %s%d %s%d %s%d %s%d %s%d %s%d %s%d %s%d %s%d',
-    '[realtimeBar]'.cyan,
+    chalk.cyan('[realtimeBar]'),
     'reqId='.bold, reqId,
     'time='.bold, time,
     'open='.bold, open,
@@ -51,7 +51,7 @@ ib.reqRealTimeBars(24, ib.contract.option('FB', '201406', 50, 'P'), 5, 'MIDPOINT
 
 // Disconnect after 10 seconds.
 setTimeout(function () {
-  console.log('Cancelling real-time bars subscription...'.yellow);
+  console.log(chalk.yellow('Cancelling real-time bars subscription...'));
 
   // Forex
   // ib.cancelRealTimeBars(1);

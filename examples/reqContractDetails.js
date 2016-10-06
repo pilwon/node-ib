@@ -1,27 +1,27 @@
-require('colors');
 var _ = require('lodash');
+var chalk = require('chalk');
 
 var ib = new (require('..'))({
   // clientId: 0,
   // host: '127.0.0.1',
   // port: 7496
 }).on('error', function (err) {
-  console.error(err.message.red);
+  console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['contractDetails', 'contractDetailsEnd'], event)) {
-    console.log('%s %s', (event + ':').yellow, JSON.stringify(args));
+    console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('contractDetails', function (reqId, contract) {
   console.log(
     '%s %s%s %s%s',
-    '[contractDetails]'.cyan,
+    chalk.cyan('[contractDetails]'),
     'reqId='.bold, reqId,
     'contract='.bold, JSON.stringify(contract)
   );
 }).on('contractDetailsEnd', function (reqId) {
   console.log(
     '%s %s%s',
-    '[contractDetailsEnd]'.cyan,
+    chalk.cyan('[contractDetailsEnd]'),
     'reqId='.bold, reqId
   );
 });
