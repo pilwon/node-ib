@@ -39,6 +39,7 @@
     "client",
     "library"
   ],
+  "main": "lib/index.js",
   "dependencies": {
     "command-buffer": "0.1.0",
     "lodash": "4.6.1",
