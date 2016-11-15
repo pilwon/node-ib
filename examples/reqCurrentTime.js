@@ -16,7 +16,7 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%s',
     chalk.cyan('[currentTime]'),
-    'time='.bold, moment.unix(time).format('YYYY-MM-DD hh:mm:ss A')
+    chalk.bold('time='), moment.unix(time).format('YYYY-MM-DD hh:mm:ss A')
   );
 });
 
