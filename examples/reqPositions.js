@@ -15,10 +15,10 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%s %s%s %s%s %s%s',
     chalk.cyan('[position]'),
-    'account='.bold, account,
-    'contract='.bold, JSON.stringify(contract),
-    'pos='.bold, pos,
-    'avgCost='.bold, avgCost
+    chalk.bold('account='), account,
+    chalk.bold('contract='), JSON.stringify(contract),
+    chalk.bold('pos='), pos,
+    chalk.bold('avgCost='), avgCost
   );
 }).on('positionEnd', function () {
   console.log(chalk.cyan('[positionEnd]'));
