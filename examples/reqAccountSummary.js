@@ -15,17 +15,17 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%d %s%s %s%s %s%s %s%s',
     chalk.cyan('[accountSummary]'),
-    'reqId='.bold, reqId,
-    'account='.bold, account,
-    'tag='.bold, tag,
-    'value='.bold, value,
-    'currency='.bold, currency
+    chalk.bold('reqId='), reqId,
+    chalk.bold('account='), account,
+    chalk.bold('tag='), tag,
+    chalk.bold('value='), value,
+    chalk.bold('currency='), currency
   );
 }).on('accountSummaryEnd', function (reqId) {
   console.log(
     '%s %s%d',
     chalk.cyan('[accountSummaryEnd]'),
-    'reqId='.bold, reqId
+    chalk.bold('reqId='), reqId
   );
 });
 
@@ -64,7 +64,7 @@ ib.reqAccountSummary(1, 'All', [
 ]);
 
 ib.on('accountSummaryEnd', function () {
-  console.log(chalk.yellow('Cancelling real-time bars subscription...'));
+  console.log(chalk.yellow('Cancelling account summary request...'));
   ib.cancelAccountSummary(1);
   ib.disconnect();
 });
