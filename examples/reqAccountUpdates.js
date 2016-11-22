@@ -15,35 +15,35 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%s',
     chalk.cyan('[accountDownloadEnd]'),
-    'accountName='.bold, accountName
+    chalk.bold('accountName='), accountName
   );
 }).on('updateAccountTime', function (timeStamp) {
   console.log(
     '%s %s%s',
     chalk.cyan('[updateAccountTime]'),
-    'timeStamp='.bold, timeStamp
+    chalk.bold('timeStamp='), timeStamp
   );
 }).on('updateAccountValue', function (key, value, currency, accountName) {
   console.log(
     '%s %s%s %s%s %s%s %s%s',
     chalk.cyan('[updateAccountValue]'),
-    'key='.bold, key,
-    'value='.bold, value,
-    'currency='.bold, currency,
-    'accountName='.bold, accountName
+    chalk.bold('key='), key,
+    chalk.bold('value='), value,
+    chalk.bold('currency='), currency,
+    chalk.bold('accountName='), accountName
   );
 }).on('updatePortfolio', function (contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName) {
   console.log(
     '%s %s%s %s%d %s%d %s%d %s%d %s%d %s%d %s%s',
     chalk.cyan('[updatePortfolio]'),
-    'contract='.bold, JSON.stringify(contract),
-    'position='.bold, position,
-    'marketPrice='.bold, marketPrice,
-    'marketValue='.bold, marketValue,
-    'averageCost='.bold, averageCost,
-    'unrealizedPNL='.bold, unrealizedPNL,
-    'realizedPNL='.bold, realizedPNL,
-    'accountName='.bold, accountName
+    chalk.bold('contract='), JSON.stringify(contract),
+    chalk.bold('position='), position,
+    chalk.bold('marketPrice='), marketPrice,
+    chalk.bold('marketValue='), marketValue,
+    chalk.bold('averageCost='), averageCost,
+    chalk.bold('unrealizedPNL='), unrealizedPNL,
+    chalk.bold('realizedPNL='), realizedPNL,
+    chalk.bold('accountName='), accountName
   );
 });
 
