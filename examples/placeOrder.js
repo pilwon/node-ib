@@ -15,16 +15,16 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%d',
     chalk.cyan('[nextValidId]'),
-    'orderId='.bold, orderId
+    chalk.bold('orderId='), orderId
   );
 }).on('openOrder', function (orderId, contract, order, orderState) {
   console.log(
     '%s %s%d %s%s %s%s %s%s',
     chalk.cyan('[openOrder]'),
-    'orderId='.bold, orderId,
-    'contract='.bold, JSON.stringify(contract),
-    'order='.bold, JSON.stringify(order),
-    'orderState='.bold, JSON.stringify(orderState)
+    chalk.bold('orderId='), orderId,
+    chalk.bold('contract='), JSON.stringify(contract),
+    chalk.bold('order='), JSON.stringify(order),
+    chalk.bold('orderState='), JSON.stringify(orderState)
   );
 }).on('openOrderEnd', function () {
   console.log(chalk.cyan('[openOrderEnd]'));
@@ -33,16 +33,16 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%d %s%s %s%d %s%d %s%d %s%d %s%d %s%d %s%d %s%s',
     chalk.cyan('[orderStatus]'),
-    'id='.bold, id,
-    'status='.bold, status,
-    'filled='.bold, filled,
-    'remaining='.bold, remaining,
-    'avgFillPrice='.bold, avgFillPrice,
-    'permId='.bold, permId,
-    'parentId='.bold, parentId,
-    'lastFillPrice='.bold, lastFillPrice,
-    'clientId='.bold, clientId,
-    'whyHeld='.bold, whyHeld
+    chalk.bold('id='), id,
+    chalk.bold('status='), status,
+    chalk.bold('filled='), filled,
+    chalk.bold('remaining='), remaining,
+    chalk.bold('avgFillPrice='), avgFillPrice,
+    chalk.bold('permId='), permId,
+    chalk.bold('parentId='), parentId,
+    chalk.bold('lastFillPrice='), lastFillPrice,
+    chalk.bold('clientId='), clientId,
+    chalk.bold('whyHeld='), whyHeld
   );
 });
 
