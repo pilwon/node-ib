@@ -11,7 +11,7 @@ var ib = new (require('..'))({
   console.error(chalk.red(err.message));
 }).on('result', function (event, args) {
   if (!_.includes(['tickEFP', 'tickGeneric', 'tickOptionComputation', 'tickPrice',
-                   'tickSize', 'tickString'], event)) {
+        'tickSize', 'tickString'], event)) {
     console.log('%s %s', chalk.yellow(event + ':'), JSON.stringify(args));
   }
 }).on('tickEFP', function (tickerId, tickType, basisPoints, formattedBasisPoints,
@@ -20,58 +20,58 @@ var ib = new (require('..'))({
   console.log(
     '%s %s%d %s%d %s%s %s%d %s%d %s%s %s%d %s%d',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
-    'tickerId='.bold, tickerId,
-    'basisPoints='.bold, basisPoints,
-    'formattedBasisPoints='.bold, formattedBasisPoints,
-    'impliedFuturesPrice='.bold, impliedFuturesPrice,
-    'holdDays='.bold, holdDays,
-    'futureExpiry='.bold, futureExpiry,
-    'dividendImpact='.bold, dividendImpact,
-    'dividendsToExpiry='.bold, dividendsToExpiry
+    chalk.bold('tickerId='), tickerId,
+    chalk.bold('basisPoints='), basisPoints,
+    chalk.bold('formattedBasisPoints='), formattedBasisPoints,
+    chalk.bold('impliedFuturesPrice='), impliedFuturesPrice,
+    chalk.bold('holdDays='), holdDays,
+    chalk.bold('futureExpiry='), futureExpiry,
+    chalk.bold('dividendImpact='), dividendImpact,
+    chalk.bold('dividendsToExpiry='), dividendsToExpiry
   );
 }).on('tickGeneric', function (tickerId, tickType, value) {
   console.log(
     '%s %s%d %s%d',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
-    'tickerId='.bold, tickerId,
-    'value='.bold, value
+    chalk.bold('tickerId='), tickerId,
+    chalk.bold('value='), value
   );
 }).on('tickOptionComputation', function (tickerId, tickType, impliedVol, delta, optPrice,
                                          pvDividend, gamma, vega, theta, undPrice) {
   console.log(
     '%s %s%d %s%s %s%s %s%s %s%d %s%s %s%s %s%s %s%d',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
-    'tickerId='.bold, tickerId,
-    'impliedVol='.bold, ib.util.numberToString(impliedVol),
-    'delta='.bold, ib.util.numberToString(delta),
-    'optPrice='.bold, ib.util.numberToString(optPrice),
-    'pvDividend='.bold, pvDividend,
-    'gamma='.bold, ib.util.numberToString(gamma),
-    'vega='.bold, ib.util.numberToString(vega),
-    'theta='.bold, ib.util.numberToString(theta),
-    'undPrice='.bold, undPrice
+    chalk.bold('tickerId='), tickerId,
+    chalk.bold('impliedVol='), ib.util.numberToString(impliedVol),
+    chalk.bold('delta='), ib.util.numberToString(delta),
+    chalk.bold('optPrice='), ib.util.numberToString(optPrice),
+    chalk.bold('pvDividend='), pvDividend,
+    chalk.bold('gamma='), ib.util.numberToString(gamma),
+    chalk.bold('vega='), ib.util.numberToString(vega),
+    chalk.bold('theta='), ib.util.numberToString(theta),
+    chalk.bold('undPrice='), undPrice
   );
 }).on('tickPrice', function (tickerId, tickType, price, canAutoExecute) {
   console.log(
     '%s %s%d %s%d %s%s',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
-    'tickerId='.bold, tickerId,
-    'price='.bold, price,
-    'canAutoExecute='.bold, canAutoExecute
+    chalk.bold('tickerId='), tickerId,
+    chalk.bold('price='), price,
+    chalk.bold('canAutoExecute='), canAutoExecute
   );
 }).on('tickSize', function (tickerId, sizeTickType, size) {
   console.log(
     '%s %s%d %s%d',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(sizeTickType))),
-    'tickerId:'.bold, tickerId,
-    'size:'.bold, size
+    chalk.bold('tickerId:'), tickerId,
+    chalk.bold('size:'), size
   );
 }).on('tickString', function (tickerId, tickType, value) {
   console.log(
     '%s %s%d %s%s',
     chalk.cyan(util.format('[%s]', ib.util.tickTypeToString(tickType))),
-    'tickerId='.bold, tickerId,
-    'value='.bold, value
+    chalk.bold('tickerId='), tickerId,
+    chalk.bold('value='), value
   );
 });
 
@@ -92,13 +92,13 @@ ib.reqMktData(13, ib.contract.stock('GOOG'), '', false);
 ib.reqMktData(14, ib.contract.stock('FB'), '', false);
 
 // Option
-ib.reqMktData(21, ib.contract.option('AAPL', '201407', 500, 'C'), '', false);
-ib.reqMktData(22, ib.contract.option('AMZN', '201404', 350, 'P'), '', false);
-ib.reqMktData(23, ib.contract.option('GOOG', '201406', 1000, 'C'), '', false);
-ib.reqMktData(24, ib.contract.option('FB', '201406', 50, 'P'), '', false);
+ib.reqMktData(21, ib.contract.option('AAPL', '201712', 200, 'C'), '', false);
+ib.reqMktData(22, ib.contract.option('AMZN', '201712', 900, 'P'), '', false);
+ib.reqMktData(23, ib.contract.option('GOOG', '201712', 1000, 'C'), '', false);
+ib.reqMktData(24, ib.contract.option('FB', '201712', 150, 'P'), '', false);
 
 // Future
-ib.reqMktData(25, ib.contract.future('ES', '201512', 'USD', 'GLOBEX'), '', false);
+ib.reqMktData(25, ib.contract.future('ES', '201712', 'USD', 'GLOBEX'), '', false);
 
 // Disconnect after 7 seconds.
 setTimeout(function () {
