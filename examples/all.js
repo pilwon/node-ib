@@ -213,3 +213,9 @@ ib.requestFA(ib.FA_DATA_TYPE.PROFILES);  // faDataType
 ib.setServerLogLevel(ib.LOG_LEVEL.WARN);  // logLevel
 
 // ib.disconnect();
+
+
+ib.reqSecDefOptParams(1235, 'IBM', "", "STK", 8314);  // reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId
+
+
+
