@@ -218,4 +218,5 @@ ib.setServerLogLevel(ib.LOG_LEVEL.WARN);  // logLevel
 ib.reqSecDefOptParams(1235, 'IBM', "", "STK", 8314);  // reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId
 
 
+ib.reqHeadTimestamp(11234, {secType: "STK", symbol: "IBM", exchange: "SMART", currency: "USD"}, "TRADES", 0,1);   // (reqId, contract, whatToShow, useRTH, formatDate) 
 
