@@ -92,6 +92,10 @@ ib.connect()
 .reqScannerParameters()
 .reqScannerSubscription(tickerId, subscription)
 .requestFA(faDataType)
+.queryDisplayGroups(reqId)
+.subscribeToGroupEvents(reqId, group)
+.unsubscribeToGroupEvents(reqId)
+.updateDisplayGroup(reqId, contract)
 .setServerLogLevel(logLevel)
 ```
 
@@ -150,6 +154,8 @@ ib.connect()
 .on('updateMktDepthL2', function (id, position, marketMaker, operation, side, price, size))
 .on('updateNewsBulletin', function (newsMsgId, newsMsgType, newsMessage, originatingExch))
 .on('updatePortfolio', function (contract, position, marketPrice, marketValue, averageCost, unrealizedPNL, realizedPNL, accountName))
+.on('displayGroupList', function(id, list))
+.on('displayGroupUpdated', function(id, contract))
 ```
 
 * [See Java client code for argument types (Boolean/Number/String)](https://github.com/pilwon/node-ib/blob/master/ref/client/EWrapper.java)
