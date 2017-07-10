@@ -19,19 +19,21 @@ public class CommissionReport {
         m_yieldRedemptionDate = 0;
     }
 
+    @Override
     public boolean equals(Object p_other) {
-        boolean l_bRetVal = false;
+        if (this == p_other) {
+            return true;
+        }
+        if (!(p_other instanceof CommissionReport)) {
+            return false;
+        }
+        CommissionReport l_theOther = (CommissionReport)p_other;
+        return m_execId.equals(l_theOther.m_execId);
+    }
 
-        if ( p_other == null ) {
-            l_bRetVal = false;
-        }
-        else if ( this == p_other ) {
-            l_bRetVal = true;
-        }
-        else {
-            CommissionReport l_theOther = (CommissionReport)p_other;
-            l_bRetVal = m_execId.equals( l_theOther.m_execId);
-        }
-        return l_bRetVal;
+    @Override
+    public int hashCode() {
+        // Since equals() uses m_execId only, the hashCode should do as well.
+        return m_execId == null ? 0 : m_execId.hashCode();
     }
 }

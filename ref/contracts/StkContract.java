@@ -4,14 +4,13 @@
 package com.ib.contracts;
 
 import com.ib.client.Contract;
+import com.ib.client.Types.SecType;
 
 public class StkContract extends Contract {
-
-   public StkContract(String symbol) {
-      m_symbol = symbol;
-      m_secType = "STK";
-      m_exchange = "SMART";
-      m_currency = "USD";
-   }
+    public StkContract(String symbol) {
+        symbol(symbol);
+        secType(SecType.STK.name());
+        exchange("SMART");
+        currency("USD");
+    }
 }
-

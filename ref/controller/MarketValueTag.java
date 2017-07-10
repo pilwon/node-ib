@@ -1,41 +1,47 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2017 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
 
+import com.ib.client.Types;
+
 public enum MarketValueTag {
-	NetLiquidationByCurrency,
-	CashBalance,
-	TotalCashBalance,
-	AccruedCash,
-	StockMarketValue,
-	OptionMarketValue,
-	FutureOptionValue,
-	FuturesPNL,
-	UnrealizedPnL,
-	RealizedPnL,
-	ExchangeRate,
-	FundValue,
-	NetDividend,
-	MutualFundValue,
-	MoneyMarketFundValue,
-	CorporateBondValue,
-	TBondValue,
-	TBillValue,
-	WarrantValue,
-	FxCashBalance;
+    AccountOrGroup("AccountOrGroup"),
+    RealCurrency("RealCurrency"),
+    IssuerOptionValue("IssuerOption"),
+    NetLiquidationByCurrency("Net Liq"),
+    CashBalance("CashBalance"),
+    TotalCashBalance("TotalCashBalance"),
+    AccruedCash("AccruedCash"),
+    StockMarketValue("Stocks"),
+    OptionMarketValue("Options"),
+    FutureOptionValue("Futures"),
+    FuturesPNL("FuturesPNL"),
+    UnrealizedPnL("UnrealizedPnL"),
+    RealizedPnL("RealizedPnL"),
+    ExchangeRate("ExchangeRate"),
+    FundValue("Fund"),
+    NetDividend("NetDividend"),
+    MutualFundValue("MutualFund"),
+    MoneyMarketFundValue("MoneyMarketFund"),
+    CorporateBondValue("CorporateBond"),
+    TBondValue("TBond"),
+    TBillValue("TBill"),
+    WarrantValue("Warrant"),
+    FxCashBalance("FxCashBalance");
 
-	public static MarketValueTag get( int i) {
-		return Types.getEnum( i, values() );
-	}
+    private final String description;
 
-	@Override public String toString() {
-		switch( this) {
-			case NetLiquidationByCurrency: return "Net Liq";
-			case StockMarketValue: return "Stocks";
-			case OptionMarketValue: return "Options";
-			case FutureOptionValue: return "Futures";
-		}
-		return super.toString().replaceAll("Value", "");
-	}
+    MarketValueTag(final String description) {
+        this.description = description;
+    }
+
+    public static MarketValueTag get(int i) {
+        return Types.getEnum(i, values());
+    }
+
+    @Override
+    public String toString() {
+        return description;
+    }
 }
