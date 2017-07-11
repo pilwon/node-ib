@@ -4,29 +4,21 @@
 package com.ib.contracts;
 
 import com.ib.client.Contract;
+import com.ib.client.Types.SecType;
 
 public class ComboContract extends Contract {
+    public ComboContract(String symbol) {
+        this(symbol, "USD", "SMART");
+    }
 
-   public ComboContract(String symbol) {
-      m_symbol = symbol;
-      m_secType = "BAG";
-      m_currency = "USD";
-      m_exchange = "SMART";
-   }
+    public ComboContract(String symbol, String currency) {
+        this(symbol, currency, "SMART");
+    }
 
-   public ComboContract(String symbol, String currency) {
-      m_symbol = symbol;
-      m_secType = "BAG";
-      m_currency = currency;
-      m_exchange = "SMART";
-   }
-
-   public ComboContract(String symbol, String currency, String exchange) {
-      m_symbol = symbol;
-      m_secType = "BAG";
-      m_currency = currency;
-      m_exchange = exchange;
-   }
+    public ComboContract(String symbol, String currency, String exchange) {
+        symbol(symbol);
+        secType(SecType.BAG.name());
+        currency(currency);
+        exchange(exchange);
+    }
 }
-
-

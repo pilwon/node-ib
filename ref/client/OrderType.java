@@ -1,9 +1,7 @@
 /* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-package com.ib.controller;
-
-import com.ib.client.IApiEnum;
+package com.ib.client;
 
 
 public enum OrderType implements IApiEnum {
@@ -31,6 +29,9 @@ public enum OrderType implements IApiEnum {
 	PEG_STK( "PEG STK"),
 	REL_PLUS_LMT( "REL + LMT"),
 	REL_PLUS_MKT( "REL + MKT"),
+	SNAP_MID( "SNAP MID"),
+	SNAP_MKT( "SNAP MKT"),
+	SNAP_PRIM( "SNAP PRIM"),
 	STP_PRT( "STP PRT"),
 	TRAIL_LIMIT( "TRAIL LIMIT"),
 	TRAIL_LIT( "TRAIL LIT"),
@@ -38,11 +39,16 @@ public enum OrderType implements IApiEnum {
 	TRAIL_MIT( "TRAIL MIT"),
 	TRAIL_REL_PLUS_MKT( "TRAIL REL + MKT"),
 	VOL( "VOL"),
-	VWAP( "VWAP");
+	VWAP( "VWAP"),
+	QUOTE("QUOTE"),
+	PEG_PRIM_VOL("PPV"),
+	PEG_MID_VOL("PDV"),
+	PEG_MKT_VOL("PMV"),
+	PEG_SRF_VOL("PSV"); 
 
 	private String m_apiString;
 
-	private OrderType( String apiString) {
+	OrderType( String apiString) {
 		m_apiString = apiString;
 	}
 
@@ -64,4 +70,5 @@ public enum OrderType implements IApiEnum {
 	@Override public String getApiString() {
 		return m_apiString;
 	}
+
 }

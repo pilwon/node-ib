@@ -3,22 +3,55 @@
 
 package com.ib.client;
 
+import com.ib.client.Types.Action;
+
 public class ComboLeg {
-    public final static int 	SAME = 0; 	// open/close leg value is same as combo
-    public final static int 	OPEN = 1;
-    public final static int 	CLOSE = 2;
-    public final static int 	UNKNOWN = 3;
+    public enum OpenClose implements IApiEnum {
+        Same, Open, Close, Unknown;
 
-    public int 					m_conId;
-    public int 					m_ratio;
-    public String 				m_action; // BUY/SELL/SSHORT/SSHORTX
-    public String 				m_exchange;
-    public int 					m_openClose;
+        static OpenClose get( int i) {
+            return Types.getEnum( i, values() );
+        }
 
+        @Override
+        public String getApiString() {
+            return String.valueOf(ordinal());
+        }
+    }
+
+    private int m_conid;
+    private int m_ratio;
+    private String m_action = "BUY"; // BUY/SELL/SSHORT/SSHORTX
+    private String m_exchange;
+    private int m_openClose = 0; // Same
     // for stock legs when doing short sale
-    public int                  m_shortSaleSlot; // 1 = clearing broker, 2 = third party
-    public String               m_designatedLocation;
-    public int                  m_exemptCode;
+    private int m_shortSaleSlot; // 1 = clearing broker, 2 = third party
+    private String m_designatedLocation;
+    private int m_exemptCode;
+
+    // Get
+    public Action action()              { return Action.get(m_action); }
+    public String getAction()           { return m_action; }
+    public int conid()                  { return m_conid; }
+    public int exemptCode()             { return m_exemptCode; }
+    public int ratio()                  { return m_ratio; }
+    public int shortSaleSlot()          { return m_shortSaleSlot; }
+    public OpenClose openClose()        { return OpenClose.get(m_openClose); }
+    public int getOpenClose()           { return m_openClose; }
+    public String designatedLocation()  { return m_designatedLocation; }
+    public String exchange()            { return m_exchange; }
+
+    // Set
+    public void action(Action v)             { m_action = ( v == null ) ? null : v.getApiString(); }
+    public void action(String v)             { m_action = v; }
+    public void conid(int v)                 { m_conid = v; }
+    public void designatedLocation(String v) { m_designatedLocation = v; }
+    public void exchange(String v)           { m_exchange = v; }
+    public void exemptCode(int v)            { m_exemptCode = v; }
+    public void openClose(OpenClose v)       { m_openClose = ( v == null ) ? 0 : v.ordinal(); }
+    public void openClose(int v)             { m_openClose = v; }
+    public void ratio(int v)                 { m_ratio = v; }
+    public void shortSaleSlot(int v)         { m_shortSaleSlot = v; }
 
     public ComboLeg() {
     	this(/* conId */ 0, /* ratio */ 0, /* action */ null,
@@ -41,7 +74,7 @@ public class ComboLeg {
 
     public ComboLeg(int p_conId, int p_ratio, String p_action, String p_exchange,
     		int p_openClose, int p_shortSaleSlot, String p_designatedLocation, int p_exemptCode) {
-        m_conId = p_conId;
+        m_conid = p_conId;
         m_ratio = p_ratio;
         m_action = p_action;
         m_exchange = p_exchange;
@@ -51,17 +84,18 @@ public class ComboLeg {
         m_exemptCode = p_exemptCode;
     }
 
+    @Override
     public boolean equals(Object p_other) {
-        if ( this == p_other ) {
+        if (this == p_other) {
             return true;
         }
-        else if ( p_other == null ) {
+        if (!(p_other instanceof ComboLeg)) {
             return false;
         }
 
         ComboLeg l_theOther = (ComboLeg)p_other;
 
-        if (m_conId != l_theOther.m_conId ||
+        if (m_conid != l_theOther.m_conid ||
         	m_ratio != l_theOther.m_ratio ||
         	m_openClose != l_theOther.m_openClose ||
         	m_shortSaleSlot != l_theOther.m_shortSaleSlot ||
@@ -76,5 +110,20 @@ public class ComboLeg {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = m_conid;
+        result = result * 31 + m_ratio;
+        result = result * 31 + m_openClose;
+        result = result * 31 + m_shortSaleSlot;
+        result = result * 31 + m_exemptCode;
+        // Other fields are strings compared ignoring case and with null checks. Do not use them.
+        return result;
+    }
+
+    @Override public String toString() {
+        return String.format( "%s %s %s", m_action, m_ratio, m_conid);
     }
 }

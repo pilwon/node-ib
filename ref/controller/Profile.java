@@ -4,18 +4,21 @@
 package com.ib.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
+
+import com.ib.client.Types;
 
 public class Profile {
 	static final String SEP = "/";
 
     private String m_name;
 	private Type m_type;
-	private ArrayList<Allocation> m_allocations = new ArrayList<Allocation>();
+	private List<Allocation> m_allocations = new ArrayList<>();
 
 	public String name() { return m_name; }
 	public Type type() { return m_type; }
-	public ArrayList<Allocation> allocations() { return m_allocations; }
+	public List<Allocation> allocations() { return m_allocations; }
 
 	public void name( String v) { m_name = v; }
 	public void type( Type v) { m_type = v; }
@@ -37,13 +40,13 @@ public class Profile {
 		}
 	}
 
-	public static enum Type {
+	public enum Type {
     	NONE, Percents, Ratios, Shares;
 
     	public static Type get( int ordinal) {
     		return Types.getEnum( ordinal, values() );
     	}
-    };
+    }
 
     public static class Allocation {
 		private String m_account;

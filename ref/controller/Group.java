@@ -4,18 +4,19 @@
 package com.ib.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
-import com.ib.controller.Types.Method;
+import com.ib.client.Types.Method;
 
 public class Group {
 	private String m_name;
 	private Method m_defaultMethod;
-	private ArrayList<String> m_accounts = new ArrayList<String>();
+	private List<String> m_accounts = new ArrayList<>();
 
 	public String name() 					{ return m_name; }
 	public Method defaultMethod() 			{ return m_defaultMethod; }
-	public ArrayList<String> accounts() 	{ return m_accounts; }
+	public List<String> accounts() 	{ return m_accounts; }
 
 	public void name( String v) 			{ m_name = v; }
 	public void defaultMethod( Method v) 	{ m_defaultMethod = v; }

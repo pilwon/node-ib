@@ -3,8 +3,7 @@
 
 package com.ib.client;
 
-public class TagValue {
-
+public final class TagValue {
 	public String m_tag;
 	public String m_value;
 
@@ -16,21 +15,24 @@ public class TagValue {
 		m_value = p_value;
 	}
 
-	public boolean equals(Object p_other) {
-
-		if( this == p_other)
-            return true;
-
-        if( p_other == null)
-            return false;
-
+	@Override
+    public boolean equals(Object p_other) {
+		if (this == p_other) {
+			return true;
+		}
+        if(!(p_other instanceof TagValue)) {
+			return false;
+		}
         TagValue l_theOther = (TagValue)p_other;
 
-        if( Util.StringCompare(m_tag, l_theOther.m_tag) != 0 ||
-        	Util.StringCompare(m_value, l_theOther.m_value) != 0) {
-        	return false;
-        }
+		return Util.StringCompare(m_tag, l_theOther.m_tag) == 0
+				&& Util.StringCompare(m_value, l_theOther.m_value) == 0;
+	}
 
-		return true;
+	@Override
+	public int hashCode() {
+		int result = (m_tag == null || "".equals(m_tag)) ? 0 : m_tag.hashCode();
+		result = result * 31 + ((m_value == null || "".equals(m_value)) ? 0 : m_value.hashCode());
+		return result;
 	}
 }

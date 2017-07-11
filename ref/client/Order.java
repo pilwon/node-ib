@@ -3,7 +3,19 @@
 
 package com.ib.client;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ib.client.Types.Action;
+import com.ib.client.Types.AlgoStrategy;
+import com.ib.client.Types.HedgeType;
+import com.ib.client.Types.Method;
+import com.ib.client.Types.OcaType;
+import com.ib.client.Types.ReferencePriceType;
+import com.ib.client.Types.Rule80A;
+import com.ib.client.Types.TimeInForce;
+import com.ib.client.Types.TriggerMethod;
+import com.ib.client.Types.VolatilityType;
 
 public class Order {
     final public static int 	CUSTOMER = 0;
@@ -20,156 +32,436 @@ public class Order {
     final public static int 	AUCTION_TRANSPARENT = 3;
     final public static String  EMPTY_STR = "";
 
-    // main order fields
-    public int 		m_orderId;
-    public int 		m_clientId;
-    public int  	m_permId;
-    public String 	m_action;
-    public int 		m_totalQuantity;
-    public String 	m_orderType;
-    public double 	m_lmtPrice;
-    public double 	m_auxPrice;
+    // order id's
+    private int  m_clientId;
+    private int  m_orderId;
+    private long m_permId;
+    private int  m_parentId; // Parent order Id, to associate Auto STP or TRAIL orders with the original order.
 
-    // extended order fields
-    public String 	m_tif;  // "Time in Force" - DAY, GTC, etc.
-    public String   m_activeStartTime; // GTC orders
-    public String   m_activeStopTime; // GTC orders
-    public String 	m_ocaGroup; // one cancels all group name
-    public int      m_ocaType;  // 1 = CANCEL_WITH_BLOCK, 2 = REDUCE_WITH_BLOCK, 3 = REDUCE_NON_BLOCK
-    public String 	m_orderRef;
-    public boolean 	m_transmit;	// if false, order will be created but not transmited
-    public int 		m_parentId;	// Parent order Id, to associate Auto STP or TRAIL orders with the original order.
-    public boolean 	m_blockOrder;
-    public boolean	m_sweepToFill;
-    public int 		m_displaySize;
-    public int 		m_triggerMethod; // 0=Default, 1=Double_Bid_Ask, 2=Last, 3=Double_Last, 4=Bid_Ask, 7=Last_or_Bid_Ask, 8=Mid-point
-    public boolean 	m_outsideRth;
-    public boolean  m_hidden;
-    public String   m_goodAfterTime; // FORMAT: 20060505 08:00:00 {time zone}
-    public String   m_goodTillDate;  // FORMAT: 20060505 08:00:00 {time zone}
-    public boolean  m_overridePercentageConstraints;
-    public String   m_rule80A;  // Individual = 'I', Agency = 'A', AgentOtherMember = 'W', IndividualPTIA = 'J', AgencyPTIA = 'U', AgentOtherMemberPTIA = 'M', IndividualPT = 'K', AgencyPT = 'Y', AgentOtherMemberPT = 'N'
-    public boolean  m_allOrNone;
-    public int      m_minQty;
-    public double   m_percentOffset;    // REL orders only; specify the decimal, e.g. .04 not 4
-    public double   m_trailStopPrice;   // for TRAILLIMIT orders only
-    public double   m_trailingPercent;  // specify the percentage, e.g. 3, not .03
-
-    // Financial advisors only
-    public String   m_faGroup;
-    public String   m_faProfile;
-    public String   m_faMethod;
-    public String   m_faPercentage;
-
-    // Institutional orders only
-    public String 	m_openClose;          // O=Open, C=Close
-    public int 		m_origin;             // 0=Customer, 1=Firm
-    public int      m_shortSaleSlot;      // 1 if you hold the shares, 2 if they will be delivered from elsewhere.  Only for Action="SSHORT
-    public String   m_designatedLocation; // set when slot=2 only.
-    public int      m_exemptCode;
-
-    // SMART routing only
-    public double   m_discretionaryAmt;
-    public boolean  m_eTradeOnly;
-    public boolean  m_firmQuoteOnly;
-    public double   m_nbboPriceCap;
-    public boolean  m_optOutSmartRouting;
-
-    // BOX or VOL ORDERS ONLY
-    public int      m_auctionStrategy; // 1=AUCTION_MATCH, 2=AUCTION_IMPROVEMENT, 3=AUCTION_TRANSPARENT
-
-    // BOX ORDERS ONLY
-    public double   m_startingPrice;
-    public double   m_stockRefPrice;
-    public double   m_delta;
-
-    // pegged to stock or VOL orders
-    public double   m_stockRangeLower;
-    public double   m_stockRangeUpper;
-
-    // VOLATILITY ORDERS ONLY
-    public double   m_volatility;  // enter percentage not decimal, e.g. 2 not .02
-    public int      m_volatilityType;     // 1=daily, 2=annual
-    public int      m_continuousUpdate;
-    public int      m_referencePriceType; // 1=Bid/Ask midpoint, 2 = BidOrAsk
-    public String   m_deltaNeutralOrderType;
-    public double   m_deltaNeutralAuxPrice;
-    public int      m_deltaNeutralConId;
-    public String   m_deltaNeutralSettlingFirm;
-    public String   m_deltaNeutralClearingAccount;
-    public String   m_deltaNeutralClearingIntent;
-    public String   m_deltaNeutralOpenClose;
-    public boolean  m_deltaNeutralShortSale;
-    public int      m_deltaNeutralShortSaleSlot;
-    public String   m_deltaNeutralDesignatedLocation;
-
-    // COMBO ORDERS ONLY
-    public double   m_basisPoints;      // EFP orders only, download only
-    public int      m_basisPointsType;  // EFP orders only, download only
-
-    // SCALE ORDERS ONLY
-    public int      m_scaleInitLevelSize;
-    public int      m_scaleSubsLevelSize;
-    public double   m_scalePriceIncrement;
-    public double   m_scalePriceAdjustValue;
-    public int      m_scalePriceAdjustInterval;
-    public double   m_scaleProfitOffset;
-    public boolean  m_scaleAutoReset;
-    public int      m_scaleInitPosition;
-    public int      m_scaleInitFillQty;
-    public boolean  m_scaleRandomPercent;
-    public String   m_scaleTable;
-
-    // HEDGE ORDERS ONLY
-    public String   m_hedgeType; // 'D' - delta, 'B' - beta, 'F' - FX, 'P' - pair
-    public String   m_hedgeParam; // beta value for beta hedge (in range 0-1), ratio for pair hedge
+    // primary attributes
+    private String      m_action = "BUY";
+    private double         m_totalQuantity;
+    private int         m_displaySize;
+    private String      m_orderType = "LMT";
+    private double      m_lmtPrice = Double.MAX_VALUE;
+    private double      m_auxPrice = Double.MAX_VALUE;
+    private String      m_tif = "DAY"; // "Time in Force" - DAY, GTC, etc.
 
     // Clearing info
-    public String 	m_account; // IB account
-    public String   m_settlingFirm;
-    public String   m_clearingAccount; // True beneficiary of the order
-    public String   m_clearingIntent; // "" (Default), "IB", "Away", "PTA" (PostTrade)
+    private String   m_account; // IB account
+    private String   m_settlingFirm;
+    private String   m_clearingAccount; // True beneficiary of the order
+    private String   m_clearingIntent; // "" (Default), "IB", "Away", "PTA" (PostTrade)
+    
+    // secondary attributes
+    private boolean m_allOrNone;
+    private boolean m_blockOrder;
+    private boolean m_hidden;
+    private boolean m_outsideRth;
+    private boolean m_sweepToFill;
+    private double  m_percentOffset = Double.MAX_VALUE;   // for Relative orders; specify the decimal, e.g. .04 not 4
+    private double  m_trailingPercent = Double.MAX_VALUE; // for Trailing Stop orders; specify the percentage, e.g. 3, not .03
+    private double  m_trailStopPrice = Double.MAX_VALUE;  // stop price for Trailing Stop orders
+    private int     m_minQty = Integer.MAX_VALUE;
+    private String  m_goodAfterTime; // FORMAT: 20060505 08:00:00 EST
+    private String  m_goodTillDate;  // FORMAT: 20060505 08:00:00 EST or 20060505
+    private String  m_ocaGroup; // one cancels all group name
+    private String  m_orderRef;
+    private String  m_rule80A = "";
+    private int     m_ocaType = 0; // None
+    private int     m_triggerMethod = 0; // Default
 
-    // ALGO ORDERS ONLY
-    public String m_algoStrategy;
-    public Vector<TagValue> m_algoParams;
+    // extended order fields
+    private String m_activeStartTime; // GTC orders
+    private String m_activeStopTime;  // GTC orders
 
-    // What-if
-    public boolean  m_whatIf;
+    // advisor allocation orders
+    private String m_faGroup;
+    private String m_faMethod = ""; // None;
+    private String m_faPercentage;
+    private String m_faProfile;
+
+    // volatility orders
+    private double  m_volatility = Double.MAX_VALUE;  // enter percentage not decimal, e.g. 2 not .02
+    private int     m_volatilityType = Integer.MAX_VALUE; // None;
+    private int     m_continuousUpdate;
+    private int     m_referencePriceType = Integer.MAX_VALUE; // None;
+    private String  m_deltaNeutralOrderType = ""; // None;
+    private double  m_deltaNeutralAuxPrice = Double.MAX_VALUE;
+    private int     m_deltaNeutralConId;
+    private String  m_deltaNeutralOpenClose;
+    private boolean m_deltaNeutralShortSale;
+    private int     m_deltaNeutralShortSaleSlot;
+    private String  m_deltaNeutralDesignatedLocation;
+
+    // scale orders
+    private int     m_scaleInitLevelSize = Integer.MAX_VALUE;
+    private int     m_scaleSubsLevelSize = Integer.MAX_VALUE;
+    private double  m_scalePriceIncrement = Double.MAX_VALUE;
+    private double  m_scalePriceAdjustValue = Double.MAX_VALUE;
+    private int     m_scalePriceAdjustInterval = Integer.MAX_VALUE;
+    private double  m_scaleProfitOffset = Double.MAX_VALUE;
+    private boolean m_scaleAutoReset;
+    private int     m_scaleInitPosition = Integer.MAX_VALUE;
+    private int     m_scaleInitFillQty = Integer.MAX_VALUE;
+    private boolean m_scaleRandomPercent;
+    private String  m_scaleTable;
+
+    // hedge orders
+    private String  m_hedgeType = "";
+    private String  m_hedgeParam; // beta value for beta hedge (in range 0-1), ratio for pair hedge
+
+    // algo orders
+    private String              m_algoStrategy = "";
+    private List<TagValue> m_algoParams = new ArrayList<>();
+    private String              m_algoId;
+
+    // combo orders
+    private List<TagValue>       m_smartComboRoutingParams = new ArrayList<>();
+    private List<OrderComboLeg>  m_orderComboLegs = new ArrayList<>();
+
+    // processing control
+    private boolean m_whatIf;
+    private boolean m_transmit = true; // if false, order will be sent to TWS but not transmitted to server
+    private boolean m_overridePercentageConstraints;
+    
+    // Institutional orders only
+    private String m_openClose = "O"; // O=Open, C=Close
+    private int    m_origin;          // 0=Customer, 1=Firm
+    private int    m_shortSaleSlot;   // 1 if you hold the shares, 2 if they will be delivered from elsewhere.  Only for Action="SSHORT
+    private String m_designatedLocation; // set when slot=2 only.
+    private int    m_exemptCode = -1;
+    private String m_deltaNeutralSettlingFirm;
+    private String m_deltaNeutralClearingAccount;
+    private String m_deltaNeutralClearingIntent;
+    
+    // SMART routing only
+    private double  m_discretionaryAmt = Double.MAX_VALUE;
+    private boolean m_eTradeOnly;
+    private boolean m_firmQuoteOnly;
+    private double  m_nbboPriceCap = Double.MAX_VALUE;
+    private boolean m_optOutSmartRouting;
+
+    // BOX or VOL ORDERS ONLY
+    private int     m_auctionStrategy; // 1=AUCTION_MATCH, 2=AUCTION_IMPROVEMENT, 3=AUCTION_TRANSPARENT
+
+    // BOX ORDERS ONLY
+    private double m_startingPrice;
+    private double m_stockRefPrice;
+    private double m_delta = Double.MAX_VALUE;
+
+    // pegged to stock or VOL orders
+    private double m_stockRangeLower;
+    private double m_stockRangeUpper;
+
+    // COMBO ORDERS ONLY
+    private double m_basisPoints;      // EFP orders only, download only
+    private int    m_basisPointsType;  // EFP orders only, download only
 
     // Not Held
-    public boolean  m_notHeld;
+    private boolean  m_notHeld;
 
-    // Smart combo routing params
-    public Vector<TagValue> m_smartComboRoutingParams;
+    // order misc options
+    private List<TagValue> m_orderMiscOptions;
+    
+    //order algo id
+	private boolean m_solicited;
+	
+	private boolean m_randomizeSize;
+	private boolean m_randomizePrice;
+	
+	//VER PEG2BENCH fields:
+	private int m_referenceContractId;
+	private double m_peggedChangeAmount;
+	private boolean m_isPeggedChangeAmountDecrease;
+	private double m_referenceChangeAmount;
+	private String m_referenceExchangeId;
+	private OrderType m_adjustedOrderType;
+	private double m_triggerPrice = Double.MAX_VALUE;
+	private double m_adjustedStopPrice = Double.MAX_VALUE;
+	private double m_adjustedStopLimitPrice = Double.MAX_VALUE;
+	private double m_adjustedTrailingAmount = Double.MAX_VALUE;
+	private int m_adjustableTrailingUnit;
+	private double m_lmtPriceOffset = Double.MAX_VALUE;
+	
+	private List<OrderCondition> m_conditions = new ArrayList<>();
+	private boolean m_conditionsCancelOrder;
+	private boolean m_conditionsIgnoreRth;
+    
+    // models
+    private String m_modelCode;
+    
+	private String m_extOperator;
+	private SoftDollarTier m_softDollarTier;
+	
+	// native cash quantity
+	private double m_cashQty = Double.MAX_VALUE;
 
-    // order combo legs
-    public Vector<OrderComboLeg> m_orderComboLegs = new Vector<OrderComboLeg>();
+	// getters
+    public Action action()              { return Action.get(m_action); }
+    public String getAction()           { return m_action; }
+    public boolean allOrNone()          { return m_allOrNone; }
+    public boolean blockOrder()         { return m_blockOrder; }
+    public boolean eTradeOnly()         { return m_eTradeOnly; }
+    public boolean firmQuoteOnly()      { return m_firmQuoteOnly; }
+    public boolean hidden()             { return m_hidden; }
+    public boolean outsideRth()         { return m_outsideRth; }
+    public boolean notHeld()            { return m_notHeld; }
+    public boolean solicited()          { return m_solicited; }
+    public boolean optOutSmartRouting() { return m_optOutSmartRouting; }
+    public boolean scaleAutoReset()     { return m_scaleAutoReset; }
+    public boolean scaleRandomPercent() { return m_scaleRandomPercent; }
+    public boolean sweepToFill()        { return m_sweepToFill; }
+    public boolean transmit()           { return m_transmit; }
+    public boolean whatIf()             { return m_whatIf; }
+    public double auxPrice()            { return m_auxPrice; }
+    public double delta()               { return m_delta; }
+    public double deltaNeutralAuxPrice() { return m_deltaNeutralAuxPrice; }
+    public double discretionaryAmt()    { return m_discretionaryAmt; }
+    public double lmtPrice()            { return m_lmtPrice; }
+    public double nbboPriceCap()        { return m_nbboPriceCap; }
+    public double percentOffset()       { return m_percentOffset; }
+    public double scalePriceAdjustValue() { return m_scalePriceAdjustValue; }
+    public double scalePriceIncrement() { return m_scalePriceIncrement; }
+    public double scaleProfitOffset()   { return m_scaleProfitOffset; }
+    public double startingPrice()       { return m_startingPrice; }
+    public double stockRangeLower()     { return m_stockRangeLower; }
+    public double stockRangeUpper()     { return m_stockRangeUpper; }
+    public double stockRefPrice()       { return m_stockRefPrice; }
+    public double basisPoints()         { return m_basisPoints; }
+    public int    basisPointsType()     { return m_basisPointsType; }
+    public double trailingPercent()     { return m_trailingPercent; }
+    public double trailStopPrice()      { return m_trailStopPrice; }
+    public double volatility()          { return m_volatility; }
+    public int clientId()               { return m_clientId; }
+    public int continuousUpdate()       { return m_continuousUpdate; }
+    public int deltaNeutralConId()      { return m_deltaNeutralConId; }
+    public String deltaNeutralOpenClose()   { return m_deltaNeutralOpenClose; }
+    public boolean deltaNeutralShortSale()  { return m_deltaNeutralShortSale; }
+    public int deltaNeutralShortSaleSlot()  { return m_deltaNeutralShortSaleSlot; }
+    public String deltaNeutralDesignatedLocation() { return m_deltaNeutralDesignatedLocation; }
+    public int displaySize()            { return m_displaySize; }
+    public int minQty()                 { return m_minQty; }
+    public int orderId()                { return m_orderId; }
+    public int parentId()               { return m_parentId; }
+    public int scaleInitFillQty()       { return m_scaleInitFillQty; }
+    public int scaleInitLevelSize()     { return m_scaleInitLevelSize; }
+    public int scaleInitPosition()      { return m_scaleInitPosition; }
+    public int scalePriceAdjustInterval() { return m_scalePriceAdjustInterval; }
+    public int scaleSubsLevelSize()     { return m_scaleSubsLevelSize; }
+    public double totalQuantity()          { return m_totalQuantity; }
+    public long permId()                { return m_permId; }
+    public Method faMethod()            { return Method.get(m_faMethod); }
+    public String getFaMethod()         { return m_faMethod; }
+    public OcaType ocaType()            { return OcaType.get(m_ocaType); }
+    public int getOcaType()             { return m_ocaType; }
+    public OrderType orderType()        { return OrderType.get(m_orderType); }
+    public String getOrderType()        { return m_orderType; }
+    public Rule80A rule80A()            { return Rule80A.get(m_rule80A); }
+    public String getRule80A()          { return m_rule80A; }
+    public String account()             { return m_account; }
+    public String settlingFirm()        { return m_settlingFirm; }
+    public String clearingAccount()     { return m_clearingAccount; }
+    public String clearingIntent()      { return m_clearingIntent; }
+    public AlgoStrategy algoStrategy()  { return AlgoStrategy.get(m_algoStrategy); }
+    public String getAlgoStrategy()     { return m_algoStrategy; }
+    public String algoId()              { return m_algoId; }
+    public String faGroup()             { return m_faGroup; }
+    public String faPercentage()        { return m_faPercentage; }
+    public String faProfile()           { return m_faProfile; }
+    public String goodAfterTime()       { return m_goodAfterTime; }
+    public String goodTillDate()        { return m_goodTillDate; }
+    public String hedgeParam()          { return m_hedgeParam; }
+    public HedgeType hedgeType()        { return HedgeType.get(m_hedgeType); }
+    public String getHedgeType()        { return m_hedgeType; }
+    public String ocaGroup()            { return m_ocaGroup; }
+    public String orderRef()            { return m_orderRef; }
+    public TimeInForce tif()            { return TimeInForce.get(m_tif); }
+    public String getTif()              { return m_tif; }
+    public String scaleTable()          { return m_scaleTable; }
+    public int auctionStrategy()        { return m_auctionStrategy; }
+    public VolatilityType volatilityType() { return VolatilityType.get(m_volatilityType); }
+    public int getVolatilityType()      { return m_volatilityType; }
+    public TriggerMethod triggerMethod()   { return TriggerMethod.get(m_triggerMethod); }
+    public int getTriggerMethod()       { return m_triggerMethod; }
+    public String activeStartTime()     { return m_activeStartTime; }
+    public String activeStopTime()      { return m_activeStopTime; }
+    public OrderType deltaNeutralOrderType() { return OrderType.get(m_deltaNeutralOrderType); }
+    public String getDeltaNeutralOrderType() { return m_deltaNeutralOrderType; }
+    public List<OrderComboLeg> orderComboLegs() { return m_orderComboLegs; }
+    public boolean overridePercentageConstraints()   { return m_overridePercentageConstraints; }
+    public String openClose()           { return m_openClose; }
+    public int    origin()              { return m_origin; }
+    public int    shortSaleSlot()       { return m_shortSaleSlot; }
+    public String designatedLocation()  { return m_designatedLocation; }
+    public int    exemptCode()          { return m_exemptCode; }
+    public String deltaNeutralSettlingFirm()    { return m_deltaNeutralSettlingFirm; }
+    public String deltaNeutralClearingAccount() { return m_deltaNeutralClearingAccount; }
+    public String deltaNeutralClearingIntent()  { return m_deltaNeutralClearingIntent; }
+    public ReferencePriceType referencePriceType() { return ReferencePriceType.get(m_referencePriceType); }
+    public int getReferencePriceType()  { return m_referencePriceType; }
+    public List<TagValue> smartComboRoutingParams() { return m_smartComboRoutingParams; }
+    public List<TagValue> orderMiscOptions()  { return m_orderMiscOptions; }
+    public boolean randomizeSize() { return m_randomizeSize; }
+    public boolean randomizePrice() { return m_randomizePrice; }
+    public int referenceContractId() { return m_referenceContractId; }
+    public boolean isPeggedChangeAmountDecrease() { return m_isPeggedChangeAmountDecrease; }
+    public double peggedChangeAmount() { return m_peggedChangeAmount; }
+	public double referenceChangeAmount() { return m_referenceChangeAmount; }
+	public String referenceExchangeId() { return m_referenceExchangeId; }
+	public OrderType adjustedOrderType() {	return m_adjustedOrderType; }
+	public double triggerPrice() { return m_triggerPrice; }
+	public double adjustedStopPrice() {	return m_adjustedStopPrice; }
+	public double adjustedStopLimitPrice() { return m_adjustedStopLimitPrice; }
+	public double adjustedTrailingAmount() { return m_adjustedTrailingAmount; }
+	public int adjustableTrailingUnit() { return m_adjustableTrailingUnit; }
+	public double lmtPriceOffset() { return m_lmtPriceOffset; }
+	public List<OrderCondition> conditions() {	return m_conditions; }
+	public boolean conditionsIgnoreRth() { return m_conditionsIgnoreRth; }
+	public boolean conditionsCancelOrder() { return m_conditionsCancelOrder; }
+    public String modelCode() { return m_modelCode; }
+    public String extOperator() { return m_extOperator; }
+    public SoftDollarTier softDollarTier() { return m_softDollarTier; }
+    public double cashQty() { return m_cashQty; }
+	// setters
+	public void referenceContractId(int m_referenceContractId) { this.m_referenceContractId = m_referenceContractId; }
+    public void account(String v)               { m_account = v; }
+    public void settlingFirm(String v)          { m_settlingFirm = v; }
+    public void clearingAccount(String v)       { m_clearingAccount = v; }
+    public void clearingIntent(String v)        { m_clearingIntent = v; }
+    public void action(Action v)                { m_action = ( v == null ) ? null : v.getApiString(); }
+    public void action(String v)                { m_action = v; }
+    public void algoStrategy(AlgoStrategy v)    { m_algoStrategy = ( v == null ) ? null : v.getApiString(); }
+    public void algoStrategy(String v)          { m_algoStrategy = v; }
+    public void algoId(String v)                { m_algoId = v; }
+    public void allOrNone(boolean v)            { m_allOrNone = v; }
+    public void auxPrice(double v)              { m_auxPrice = v; }
+    public void blockOrder(boolean v)           { m_blockOrder = v; }
+    public void clientId(int v)                 { m_clientId = v; }
+    public void continuousUpdate(int v)         { m_continuousUpdate = v; }
+    public void delta(double v)                 { m_delta = v; }
+    public void deltaNeutralAuxPrice(double v)  { m_deltaNeutralAuxPrice = v; }
+    public void deltaNeutralConId(int v)        { m_deltaNeutralConId = v; }
+    public void deltaNeutralOpenClose(String v) { m_deltaNeutralOpenClose = v; }
+    public void deltaNeutralShortSale(boolean v)  { m_deltaNeutralShortSale = v; }
+    public void deltaNeutralShortSaleSlot(int v)  { m_deltaNeutralShortSaleSlot = v; }
+    public void deltaNeutralDesignatedLocation(String v) { m_deltaNeutralDesignatedLocation = v; }
+    public void deltaNeutralOrderType(OrderType v) { m_deltaNeutralOrderType = ( v == null ) ? null : v.getApiString(); }
+    public void deltaNeutralOrderType(String v) { m_deltaNeutralOrderType = v; }
+    public void discretionaryAmt(double v)      { m_discretionaryAmt = v; }
+    public void displaySize(int v)              { m_displaySize = v; }
+    public void eTradeOnly(boolean v)           { m_eTradeOnly = v; }
+    public void faGroup(String v)               { m_faGroup = v; }
+    public void faMethod(Method v)              { m_faMethod = ( v == null ) ? null : v.getApiString(); }
+    public void faMethod(String v)              { m_faMethod = v; }
+    public void faPercentage(String v)          { m_faPercentage = v; }
+    public void faProfile(String v)             { m_faProfile = v; }
+    public void firmQuoteOnly(boolean v)        { m_firmQuoteOnly = v; }
+    public void goodAfterTime(String v)         { m_goodAfterTime = v; }
+    public void goodTillDate(String v)          { m_goodTillDate = v; }
+    public void hedgeParam(String v)            { m_hedgeParam = v; }
+    public void hedgeType(HedgeType v)          { m_hedgeType = ( v == null ) ? null : v.getApiString(); }
+    public void hedgeType(String v)             { m_hedgeType = v; }
+    public void hidden(boolean v)               { m_hidden = v; }
+    public void lmtPrice(double v)              { m_lmtPrice = v; }
+    public void minQty(int v)                   { m_minQty = v; }
+    public void nbboPriceCap(double v)          { m_nbboPriceCap = v; }
+    public void notHeld(boolean v)              { m_notHeld = v; }
+    public void solicited(boolean v)            { m_solicited = v; }
+    public void ocaGroup(String v)              { m_ocaGroup = v; }
+    public void ocaType(OcaType v)              { m_ocaType = ( v == null ) ? 0 : v.ordinal(); }
+    public void ocaType(int v)                  { m_ocaType = v; }
+    public void optOutSmartRouting(boolean v)   { m_optOutSmartRouting = v; }
+    public void orderId(int v)                  { m_orderId = v; }
+    public void orderRef(String v)              { m_orderRef = v; }
+    public void orderType(OrderType v)          { m_orderType = ( v == null ) ? null : v.getApiString(); }
+    public void orderType(String v)             { m_orderType = v; }
+    public void outsideRth(boolean v)           { m_outsideRth = v; }
+    public void overridePercentageConstraints(boolean v) { m_overridePercentageConstraints = v; }
+    public void openClose(String v)             { m_openClose = v; }
+    public void origin(int v)                   { m_origin = v; }
+    public void shortSaleSlot(int v)            { m_shortSaleSlot = v; }
+    public void designatedLocation(String v)    { m_designatedLocation = v; }
+    public void exemptCode(int v)               { m_exemptCode = v; }
+    public void parentId(int v)                 { m_parentId = v; }
+    public void percentOffset(double v)         { m_percentOffset = v; }
+    public void permId(long v)                  { m_permId = v; }
+    public void referencePriceType(ReferencePriceType v) { m_referencePriceType = ( v == null ) ? 0 : v.ordinal(); }
+    public void referencePriceType(int v)       { m_referencePriceType = v; }
+    public void rule80A(Rule80A v)              { m_rule80A = ( v == null ) ? null : v.getApiString(); }
+    public void rule80A(String v)               { m_rule80A = v; }
+    public void scaleAutoReset(boolean v)       { m_scaleAutoReset = v; }
+    public void scaleInitFillQty(int v)         { m_scaleInitFillQty = v; }
+    public void scaleInitLevelSize(int v)       { m_scaleInitLevelSize = v; }
+    public void scaleInitPosition(int v)        { m_scaleInitPosition = v; }
+    public void scalePriceAdjustInterval(int v) { m_scalePriceAdjustInterval = v; }
+    public void scalePriceAdjustValue(double v) { m_scalePriceAdjustValue = v; }
+    public void scalePriceIncrement(double v)   { m_scalePriceIncrement = v; }
+    public void scaleProfitOffset(double v)     { m_scaleProfitOffset = v; }
+    public void scaleRandomPercent(boolean v)   { m_scaleRandomPercent = v; }
+    public void scaleSubsLevelSize(int v)       { m_scaleSubsLevelSize = v; }
+    public void startingPrice(double v)         { m_startingPrice = v; }
+    public void stockRangeLower(double v)       { m_stockRangeLower = v; }
+    public void stockRangeUpper(double v)       { m_stockRangeUpper = v; }
+    public void stockRefPrice(double v)         { m_stockRefPrice = v; }
+    public void basisPoints(double v)           { m_basisPoints = v; }
+    public void basisPointsType(int v)          { m_basisPointsType = v; }
+    public void sweepToFill(boolean v)          { m_sweepToFill = v; }
+    public void tif(TimeInForce v)              { m_tif = ( v == null ) ? null : v.getApiString(); }
+    public void tif(String v)                   { m_tif = v; }
+    public void totalQuantity(double v)            { m_totalQuantity = v; }
+    public void trailingPercent(double v)       { m_trailingPercent = v; }
+    public void trailStopPrice(double v)        { m_trailStopPrice = v; }
+    public void transmit(boolean v)             { m_transmit = v; }
+    public void triggerMethod(TriggerMethod v)  { m_triggerMethod = ( v == null ) ? 0 : v.val(); }
+    public void triggerMethod(int v)            { m_triggerMethod = v; }
+    public void activeStartTime(String v)       { m_activeStartTime = v; }
+    public void activeStopTime(String v)        { m_activeStopTime = v; }
+    public void algoParams(List<TagValue> v) { m_algoParams = v; }
+    public void volatility(double v)            { m_volatility = v; }
+    public void volatilityType(VolatilityType v) { m_volatilityType = ( v == null ) ? 0 : v.ordinal(); }
+    public void volatilityType(int v)           { m_volatilityType = v; }
+    public void whatIf(boolean v)               { m_whatIf = v; }
+    public void scaleTable(String v)            { m_scaleTable = v; }
+    public void auctionStrategy(int v)          { m_auctionStrategy = v; }
+    public void orderComboLegs(List<OrderComboLeg> v) { m_orderComboLegs = v; }
+    public void deltaNeutralSettlingFirm(String v)      { m_deltaNeutralSettlingFirm = v; }
+    public void deltaNeutralClearingAccount(String v)   { m_deltaNeutralClearingAccount = v; }
+    public void deltaNeutralClearingIntent(String v)    { m_deltaNeutralClearingIntent = v; }
+    public void smartComboRoutingParams(List<TagValue> v) { m_smartComboRoutingParams = v; }
+    public void orderMiscOptions(List<TagValue> v) { m_orderMiscOptions = v; }
+    public void randomizeSize(boolean v) { m_randomizeSize = v; }
+    public void randomizePrice(boolean v) { m_randomizePrice = v; }
+    public void modelCode(String v) { m_modelCode = v; }
+    public void isPeggedChangeAmountDecrease(boolean v) { m_isPeggedChangeAmountDecrease = v; }
+	public void peggedChangeAmount(double m_peggedChangeAmount) { this.m_peggedChangeAmount = m_peggedChangeAmount; }
+	public void referenceChangeAmount(double m_referenceChangeAmount) { this.m_referenceChangeAmount = m_referenceChangeAmount; }
+	public void referenceExchangeId(String m_referenceExchangeId) { this.m_referenceExchangeId = m_referenceExchangeId; }
+	public void adjustedOrderType(OrderType v) { m_adjustedOrderType = v; }
+	public void triggerPrice(double v) { m_triggerPrice = v; }
+	public void adjustedStopPrice(double v) {	m_adjustedStopPrice = v; }
+	public void adjustedStopLimitPrice(double v) { m_adjustedStopLimitPrice = v; }
+	public void adjustedTrailingAmount(double v) { m_adjustedTrailingAmount = v; }
+	public void adjustableTrailingUnit(int v) { m_adjustableTrailingUnit = v; }
+	public void lmtPriceOffset(double v) { m_lmtPriceOffset = v; }
+	public void conditions(List<OrderCondition> v) { m_conditions = v; }
+	public void conditionsIgnoreRth(boolean v) { m_conditionsIgnoreRth = v; }
+	public void conditionsCancelOrder(boolean v) { m_conditionsCancelOrder = v; }
+	public void extOperator(String v) { m_extOperator = v; }
+	public void softDollarTier(SoftDollarTier v) { m_softDollarTier = v; }
+	public void cashQty(double v) { m_cashQty = v; }
 
     public Order() {
-        m_lmtPrice = Double.MAX_VALUE;
-        m_auxPrice = Double.MAX_VALUE;
         m_activeStartTime = EMPTY_STR;
         m_activeStopTime = EMPTY_STR;
     	m_outsideRth = false;
-        m_openClose	= "O";
         m_origin = CUSTOMER;
-        m_transmit = true;
         m_designatedLocation = EMPTY_STR;
-        m_exemptCode = -1;
-        m_minQty = Integer.MAX_VALUE;
-        m_percentOffset = Double.MAX_VALUE;
-        m_nbboPriceCap = Double.MAX_VALUE;
         m_optOutSmartRouting = false;
         m_startingPrice = Double.MAX_VALUE;
         m_stockRefPrice = Double.MAX_VALUE;
-        m_delta = Double.MAX_VALUE;
         m_stockRangeLower = Double.MAX_VALUE;
         m_stockRangeUpper = Double.MAX_VALUE;
-        m_volatility = Double.MAX_VALUE;
-        m_volatilityType = Integer.MAX_VALUE;
-        m_deltaNeutralOrderType = EMPTY_STR;
-        m_deltaNeutralAuxPrice = Double.MAX_VALUE;
         m_deltaNeutralConId = 0;
         m_deltaNeutralSettlingFirm = EMPTY_STR;
         m_deltaNeutralClearingAccount = EMPTY_STR;
@@ -178,34 +470,36 @@ public class Order {
         m_deltaNeutralShortSale = false;
         m_deltaNeutralShortSaleSlot = 0;
         m_deltaNeutralDesignatedLocation = EMPTY_STR;
-        m_referencePriceType = Integer.MAX_VALUE;
-        m_trailStopPrice = Double.MAX_VALUE;
-        m_trailingPercent = Double.MAX_VALUE;
         m_basisPoints = Double.MAX_VALUE;
         m_basisPointsType = Integer.MAX_VALUE;
-        m_scaleInitLevelSize = Integer.MAX_VALUE;
-        m_scaleSubsLevelSize = Integer.MAX_VALUE;
-        m_scalePriceIncrement = Double.MAX_VALUE;
-        m_scalePriceAdjustValue = Double.MAX_VALUE;
-        m_scalePriceAdjustInterval = Integer.MAX_VALUE;
-        m_scaleProfitOffset = Double.MAX_VALUE;
         m_scaleAutoReset = false;
-        m_scaleInitPosition = Integer.MAX_VALUE;
-        m_scaleInitFillQty = Integer.MAX_VALUE;
         m_scaleRandomPercent = false;
         m_scaleTable = EMPTY_STR;
         m_whatIf = false;
         m_notHeld = false;
+        m_algoId = EMPTY_STR;
+        m_solicited = false;
+        m_randomizeSize = false;
+        m_randomizePrice = false;
+        m_extOperator = EMPTY_STR;
+        m_softDollarTier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
     }
 
+    public List<TagValue> algoParams() {
+        if( m_algoParams == null ) {
+            m_algoParams = new ArrayList<>();
+        }
+        return m_algoParams; 
+    }
+
+    @Override
     public boolean equals(Object p_other) {
-
-        if ( this == p_other )
+        if (this == p_other) {
             return true;
-
-        if ( p_other == null )
+        }
+        if (!(p_other instanceof Order)) {
             return false;
-
+        }
         Order l_theOther = (Order)p_other;
 
         if ( m_permId == l_theOther.m_permId ) {
@@ -267,7 +561,22 @@ public class Order {
         	m_scaleRandomPercent != l_theOther.m_scaleRandomPercent ||
         	m_whatIf != l_theOther.m_whatIf ||
         	m_notHeld != l_theOther.m_notHeld ||
-        	m_exemptCode != l_theOther.m_exemptCode) {
+        	m_exemptCode != l_theOther.m_exemptCode ||
+        	m_randomizePrice != l_theOther.m_randomizePrice ||
+            m_randomizeSize != l_theOther.m_randomizeSize ||        
+        	m_solicited != l_theOther.m_solicited ||
+        	m_referenceContractId != l_theOther.m_referenceContractId ||
+        	m_peggedChangeAmount != l_theOther.m_peggedChangeAmount ||
+        	m_referenceChangeAmount != l_theOther.m_referenceChangeAmount ||
+        	m_adjustedOrderType != l_theOther.m_adjustedOrderType ||
+        	m_triggerPrice != l_theOther.m_triggerPrice ||
+        	m_adjustedStopPrice != l_theOther.m_adjustedStopPrice ||
+        	m_adjustedStopLimitPrice != l_theOther.m_adjustedStopLimitPrice ||
+        	m_adjustedTrailingAmount != l_theOther.m_adjustedTrailingAmount ||
+        	m_adjustableTrailingUnit != l_theOther.m_adjustableTrailingUnit ||
+        	m_lmtPriceOffset != l_theOther.m_lmtPriceOffset ||
+        	m_softDollarTier.equals(l_theOther.m_softDollarTier) ||
+        	m_cashQty != l_theOther.m_cashQty) {
         	return false;
         }
 
@@ -300,23 +609,37 @@ public class Order {
         	Util.StringCompare(m_clearingAccount, l_theOther.m_clearingAccount) != 0 ||
         	Util.StringCompare(m_clearingIntent, l_theOther.m_clearingIntent) != 0 ||
         	Util.StringCompare(m_algoStrategy, l_theOther.m_algoStrategy) != 0 ||
-        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0) {
+        	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
+        	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
+        	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0 ||
+        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0 || 
+        	Util.StringCompare(m_extOperator, l_theOther.m_extOperator) != 0) {
         	return false;
         }
 
-        if (!Util.VectorEqualsUnordered(m_algoParams, l_theOther.m_algoParams)) {
+        if (!Util.listsEqualUnordered(m_algoParams, l_theOther.m_algoParams)) {
         	return false;
         }
 
-        if (!Util.VectorEqualsUnordered(m_smartComboRoutingParams, l_theOther.m_smartComboRoutingParams)) {
+        if (!Util.listsEqualUnordered(m_smartComboRoutingParams, l_theOther.m_smartComboRoutingParams)) {
         	return false;
         }
 
     	// compare order combo legs
-        if (!Util.VectorEqualsUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
+        if (!Util.listsEqualUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
         	return false;
         }
-
+        
+        if (!Util.listsEqualUnordered(m_conditions, l_theOther.m_conditions)) {
+        	return false;
+        }
+        
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        // Use m_permId only due to the definition of equals.
+        return (int) (m_permId ^ (m_permId >>> 32));
     }
 }

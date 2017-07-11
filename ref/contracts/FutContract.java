@@ -4,22 +4,21 @@
 package com.ib.contracts;
 
 import com.ib.client.Contract;
+import com.ib.client.Types.SecType;
 
 public class FutContract extends Contract {
+    public FutContract(String symbol, String lastTradeDateOrContractMonth) {
+        symbol(symbol);
+        secType(SecType.FUT);
+        exchange("ONE");
+        currency("USD");
+        lastTradeDateOrContractMonth(lastTradeDateOrContractMonth);
+    }
 
-   public FutContract(String symbol, String expiry) {
-      m_symbol = symbol;
-      m_secType = "FUT";
-      m_exchange = "ONE";
-      m_currency = "USD";
-      m_expiry = expiry;
-   }
-
-   public FutContract(String symbol, String expiry, String currency) {
-      m_symbol = symbol;
-      m_secType = "FUT";
-      m_currency = currency;
-      m_expiry = expiry;
-   }
+    public FutContract(String symbol, String lastTradeDateOrContractMonth, String currency) {
+        symbol(symbol);
+        secType(SecType.FUT.name());
+        currency(currency);
+        lastTradeDateOrContractMonth(lastTradeDateOrContractMonth);
+    }
 }
-
