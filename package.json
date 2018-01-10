@@ -1,7 +1,7 @@
 {
   "name": "ib",
   "description": "Interactive Brokers TWS (or IB Gateway) API client library for Node.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "author": {
     "name": "Pilwon Huh",
@@ -56,7 +56,7 @@
     "moment": "~2.4.0"
   },
   "scripts": {
-    "prepublish": "npm prune",
+    "prepare": "npm prune",
     "test": "grunt test"
   }
 }
