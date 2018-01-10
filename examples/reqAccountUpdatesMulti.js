@@ -26,7 +26,7 @@ var ib = new (require('..'))({
     chalk.bold('modelCode='), modelCode,
     chalk.bold('key='), key,
     chalk.bold('value='), value,
-    chalk.bold('currency='), currency,
+    chalk.bold('currency='), currency
   );
 });
 

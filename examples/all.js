@@ -1,6 +1,5 @@
 var util = require('util');
 
-var _ = require('lodash');
 var chalk = require('chalk');
 
 var ib = new (require('..'))({
@@ -156,14 +155,14 @@ ib.reqMktData(301, {
   exchange: 'IDEALPRO',
   secType: 'CASH',
   symbol: 'EUR'
-}, '', false);  // tickerId, contract, genericTickList, snapshot
+}, '', false, false);  // tickerId, contract, genericTickList, snapshot
 
 ib.reqMktData(302, {
   currency: 'CAD',
   exchange: 'IDEALPRO',
   secType: 'CASH',
   symbol: 'USD'
-}, '', false);  // tickerId, contract, genericTickList, snapshot
+}, '', false, false);  // tickerId, contract, genericTickList, snapshot
 
 ib.reqMktData(303, {
   currency: 'USD',
@@ -171,7 +170,7 @@ ib.reqMktData(303, {
   primaryExch: 'NASDAQ',
   secType: 'STK',
   symbol: 'AMZN'
-}, '', false);  // tickerId, contract, genericTickList, snapshot
+}, '', false, false);  // tickerId, contract, genericTickList, snapshot
 
 ib.reqMktDepth(12345, {
   currency: 'CAD',
@@ -215,8 +214,6 @@ ib.setServerLogLevel(ib.LOG_LEVEL.WARN);  // logLevel
 // ib.disconnect();
 
 
-ib.reqSecDefOptParams(1235, 'IBM', "", "STK", 8314);  // reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId
+ib.reqSecDefOptParams(1235, 'IBM', '', 'STK', 8314);  // reqId, underlyingSymbol, futFopExchange, underlyingSecType, underlyingConId
 
-
-ib.reqHeadTimestamp(11234, {secType: "STK", symbol: "IBM", exchange: "SMART", currency: "USD"}, "TRADES", 0,1);   // (reqId, contract, whatToShow, useRTH, formatDate) 
-
+ib.reqHeadTimestamp(11234, { secType: 'STK', symbol: 'IBM', exchange: 'SMART', currency: 'USD' }, 'TRADES', 0, 0);   // (reqId, contract, whatToShow, useRTH, formatDate)

@@ -78,27 +78,27 @@ var ib = new (require('..'))({
 ib.connect();
 
 // Forex
-ib.reqMktData(1, ib.contract.forex('EUR'), '', false);
-ib.reqMktData(2, ib.contract.forex('GBP'), '', false);
-ib.reqMktData(3, ib.contract.forex('CAD'), '', false);
-ib.reqMktData(4, ib.contract.forex('HKD'), '', false);
-ib.reqMktData(5, ib.contract.forex('JPY'), '', false);
-ib.reqMktData(6, ib.contract.forex('KRW'), '', false);
+ib.reqMktData(1, ib.contract.forex('EUR'), '', false, false);
+ib.reqMktData(2, ib.contract.forex('GBP'), '', false, false);
+ib.reqMktData(3, ib.contract.forex('CAD'), '', false, false);
+ib.reqMktData(4, ib.contract.forex('HKD'), '', false, false);
+ib.reqMktData(5, ib.contract.forex('JPY'), '', false, false);
+ib.reqMktData(6, ib.contract.forex('KRW'), '', false, false);
 
 // Stock
-ib.reqMktData(11, ib.contract.stock('AAPL'), '', false);
-ib.reqMktData(12, ib.contract.stock('AMZN'), '', false);
-ib.reqMktData(13, ib.contract.stock('GOOG'), '', false);
-ib.reqMktData(14, ib.contract.stock('FB'), '', false);
+ib.reqMktData(11, ib.contract.stock('AAPL'), '', false, false);
+ib.reqMktData(12, ib.contract.stock('AMZN'), '', false, false);
+ib.reqMktData(13, ib.contract.stock('GOOG'), '', false, false);
+ib.reqMktData(14, ib.contract.stock('FB'), '', false, false);
 
 // Option
-ib.reqMktData(21, ib.contract.option('AAPL', '201712', 200, 'C'), '', false);
-ib.reqMktData(22, ib.contract.option('AMZN', '201712', 900, 'P'), '', false);
-ib.reqMktData(23, ib.contract.option('GOOG', '201712', 1000, 'C'), '', false);
-ib.reqMktData(24, ib.contract.option('FB', '201712', 150, 'P'), '', false);
+ib.reqMktData(21, ib.contract.option('AAPL', '201712', 200, 'C'), '', false, false);
+ib.reqMktData(22, ib.contract.option('AMZN', '201712', 900, 'P'), '', false, false);
+ib.reqMktData(23, ib.contract.option('GOOG', '201712', 1000, 'C'), '', false, false);
+ib.reqMktData(24, ib.contract.option('FB', '201712', 150, 'P'), '', false, false);
 
 // Future
-ib.reqMktData(25, ib.contract.future('ES', '201712', 'USD', 'GLOBEX'), '', false);
+ib.reqMktData(25, ib.contract.future('ES', '201712', 'USD', 'GLOBEX'), '', false, false);
 
 // Disconnect after 7 seconds.
 setTimeout(function () {

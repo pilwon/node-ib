@@ -31,8 +31,8 @@ var ib = new (require('..'))({
 
 ib.connect();
 
-// tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate
-ib.reqHistoricalData(1, ib.contract.stock('SPY','SMART','USD'), '20160308 12:00:00',durationStr='1800 S',barSizeSetting='1 secs',whatToShow='TRADES',useRTH=1,formatDate=1);
+// tickerId, contract, endDateTime, durationStr, barSizeSetting, whatToShow, useRTH, formatDate, keepUpToDate
+ib.reqHistoricalData(1, ib.contract.stock('SPY','SMART','USD'), '20160308 12:00:00', '1800 S', '1 secs', 'TRADES', 1, 1, false);
 
 ib.on('historicalData', function (reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps) {
   if (_.includes([-1], open)) {
