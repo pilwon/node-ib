@@ -41,19 +41,19 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "command-buffer": "0.1.0",
-    "lodash": "4.6.1",
-    "function-rate-limit": "1.1.0"
+    "command-buffer": "^0.1.0",
+    "lodash": "^4.17.4",
+    "function-rate-limit": "^1.1.0"
   },
   "devDependencies": {
     "chalk": "^1.1.3",
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-mocha-test": "~0.7.0",
-    "matchdep": "~0.3.0",
-    "mocha": "~1.13.0",
-    "moment": "~2.4.0"
+    "grunt": "^0.4.1",
+    "grunt-contrib-jshint": "^0.7.0",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt-mocha-test": "^0.7.0",
+    "matchdep": "^0.3.0",
+    "mocha": "^1.13.0",
+    "moment": "^2.20.1"
   },
   "scripts": {
     "prepare": "npm prune",
