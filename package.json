@@ -42,14 +42,14 @@
   "main": "lib/index.js",
   "dependencies": {
     "command-buffer": "^0.1.0",
-    "lodash": "^4.17.4",
-    "function-rate-limit": "^1.1.0"
+    "function-rate-limit": "^1.1.0",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "chalk": "^2.3.0",
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-mocha-test": "^0.13.3",
     "matchdep": "^2.0.0",
     "mocha": "^4.1.0",
