@@ -188,10 +188,12 @@ ib.connect()
 .contract.stock(symbol, exchange, currency)
 
 // Order
-.order.limit(action, quantity, price)
-.order.market(action, quantity)
-.order.stop(action, quantity, price)
-.order.stopLimit(action, quantity, limitPrice, stopPrice)
+.order.limit(action, quantity, price, transmitOrder)
+.order.market(action, quantity, transmitOrder, goodAfterTime, goodTillDate)
+.order.marketClose(action, quantity, price, transmitOrder)
+.order.stop(action, quantity, price, transmitOrder, parentId, tif)
+.order.stopLimit(action, quantity, limitPrice, stopPrice, transmitOrder, parentId, tif)
+.order.trailingStop(action, quantity, auxPrice, tif, transmitOrder, parentId)
 ```
 
 ### Util
