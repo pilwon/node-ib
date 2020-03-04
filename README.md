@@ -2,10 +2,16 @@
 
 [![NPM](https://nodei.co/npm/ib.png?downloads=false&stars=false)](https://npmjs.org/package/ib) [![NPM](https://nodei.co/npm-dl/ib.png?months=6)](https://npmjs.org/package/ib)
 
-`ib` is [Interactive Brokers](http://interactivebrokers.com/) TWS (or IB Gateway) API client library for [Node.js](http://nodejs.org/).
+`ib` is an [Interactive Brokers](http://interactivebrokers.com/) TWS (or IB Gateway) API client library for [Node.js](http://nodejs.org/). Refer to the official [Trader Workstation API](https://interactivebrokers.github.io/tws-api/) documentation for details.
 
 This is a direct port of Interactive Brokers' official Java client. There is no C++/Java library dependency. It makes a socket connection to TWS (or IB Gateway) using the [net](http://nodejs.org/api/net.html) module, and all messages are entirely processed in JavaScript. It uses [EventEmitter](http://nodejs.org/api/events.html) to pass the result back to user.
 
+## _MAINTAINERS NEEDED_
+
+The libary is lagging behind the official Java reference and [no updates have been made after v9.70 (~2017)](https://github.com/pilwon/node-ib/issues/145#issuecomment-526855798). This means that some newer features aren't implemented:
+* [reqHistoricalNews and reqNewsArticle](https://github.com/pilwon/node-ib/issues/130)
+* [time and sales data](https://github.com/pilwon/node-ib/issues/111)
+* [trailing stop limit orders](https://github.com/pilwon/node-ib/issues/145)
 
 ## Installation
 
@@ -50,7 +56,7 @@ ib.connect()
 .disconnect()
 ```
 
-### Commands
+### Methods
 
 ```js
 .calculateImpliedVolatility(reqId, contract, optionPrice, underPrice)
@@ -105,6 +111,8 @@ ib.connect()
 .updateDisplayGroup(reqId, contract)
 .setServerLogLevel(logLevel)
 ```
+
+Note that .reqContractDetails doesn't respect the official format of the [ContractDetails class](https://interactivebrokers.github.io/tws-api/classIBApi_1_1ContractDetails.html). For example, the `Contract` field is replaced with a [`summary` field](https://github.com/pilwon/node-ib/blob/c37f234bfd1538323af1a6fe6c60c311d2767f7c/lib/incoming.js#L101) that contains some of the attributes in the contract.
 
 ### Events
 
