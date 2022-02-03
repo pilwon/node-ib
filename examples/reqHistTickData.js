@@ -17,7 +17,7 @@ var ib = new(require('..'))({
     chalk.bold('price='), data[3],
     chalk.bold('size='), data[4],
     chalk.bold('exchange='), data[5],
-    chalk.bold('specialConditions='), data[6],
+    chalk.bold('specialConditions='), data[6]
   );
 }).on('historicalTickBidAskData', (...data) => {
   console.log(
@@ -29,7 +29,7 @@ var ib = new(require('..'))({
     chalk.bold('priceBid='), data[3],
     chalk.bold('priceAsk='), data[4],
     chalk.bold('sizeBid='), data[5],
-    chalk.bold('sizeAsk='), data[6],
+    chalk.bold('sizeAsk='), data[6]
   );
 }).on('historicalTickMidPointData', (...data) => {
     console.log(
