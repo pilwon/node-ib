@@ -18,7 +18,7 @@ var ib = new(require('..'))({
     chalk.bold('size='), data[4],
     chalk.bold('attributes='), JSON.stringify(data[5]),
     chalk.bold('exchange='), data[6],
-    chalk.bold('specialConditions='), data[7],
+    chalk.bold('specialConditions='), data[7]
   );
 }).on('tickByTickBidAsk', (...data) => {
   console.log(
@@ -30,7 +30,7 @@ var ib = new(require('..'))({
     chalk.bold('priceAsk='), data[3],
     chalk.bold('sizeBid='), data[4],
     chalk.bold('sizeAsk='), data[5],
-    chalk.bold('attributes='), JSON.stringify(data[6]),
+    chalk.bold('attributes='), JSON.stringify(data[6])
   );
 }).on('tickByTickMidPoint', (...data) => {
   console.log(
@@ -38,14 +38,14 @@ var ib = new(require('..'))({
     chalk.cyan('[tickByTickMidPoint]'),
     chalk.bold('reqId='), data[0],
     chalk.bold('timestamp='), data[1],
-    chalk.bold('midpoint='), data[2],
+    chalk.bold('midpoint='), data[2]
   );
 });
 
 ib.connect();
 
 // tickerId, contract, tick type (BidAsk, Last, AllLast, MidPoint), numberOfTicks, ignoreSize
-ib.reqTickByTickData(1, ib.contract.stock('SPY', 'SMART', 'USD'), 'BidAsk', 0, false)
+ib.reqTickByTickData(1, ib.contract.stock('SPY', 'SMART', 'USD'), 'BidAsk', 0, false);
 //ib.reqTickByTickData(1, ib.contract.stock('SPY', 'SMART', 'USD'), 'AllLast', 0, false)
 //ib.reqTickByTickData(1, ib.contract.stock('SPY', 'SMART', 'USD'), 'Last', 0, false)
 //ib.reqTickByTickData(1, ib.contract.stock('SPY', 'SMART', 'USD'), 'MidPoint', 0, false)
